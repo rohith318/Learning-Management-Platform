@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">{{ title }}</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Enrollment</label>
+        {{ form.enrollment }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Completed Lessons</label>
+        {{ form.completed_lessons }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Progress Percentage</label>
+        {{ form.progress_percent }}
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Save
+    </button>
+
+    <a href="{% url 'progress_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

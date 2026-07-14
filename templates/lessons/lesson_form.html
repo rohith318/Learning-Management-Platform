@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">{{ title }}</h2>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Course</label>
+        {{ form.course }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Lesson Title</label>
+        {{ form.title }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Content</label>
+        {{ form.content }}
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Video URL</label>
+        {{ form.video_url }}
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Save
+    </button>
+
+    <a href="{% url 'lesson_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

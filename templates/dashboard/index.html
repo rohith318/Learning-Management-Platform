@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-3 mb-4">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <h5>Total Users</h5>
+                <h2>{{ total_users }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <h5>Total Students</h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <h5>Total Instructors</h5>
+                <h2>{{ total_instructors }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card bg-dark text-white">
+            <div class="card-body">
+                <h5>Total Courses</h5>
+                <h2>{{ total_courses }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <h5>Total Lessons</h5>
+                <h2>{{ total_lessons }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card bg-secondary text-white">
+            <div class="card-body">
+                <h5>Total Enrollments</h5>
+                <h2>{{ total_enrollments }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card bg-danger text-white">
+            <div class="card-body">
+                <h5>Total Progress</h5>
+                <h2>{{ total_progress }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<h3 class="mb-3">Recent Courses</h3>
+
+<table class="table table-bordered">
+
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Course</th>
+            <th>Instructor</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for course in recent_courses %}
+
+        <tr>
+            <td>{{ course.id }}</td>
+            <td>{{ course.title }}</td>
+            <td>{{ course.instructor.full_name }}</td>
+            <td>{{ course.status }}</td>
+        </tr>
+
+    {% empty %}
+
+        <tr>
+            <td colspan="4" class="text-center">
+                No courses available.
+            </td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

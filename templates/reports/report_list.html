@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Reports{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Reports Dashboard</h2>
+
+    <a href="{% url 'download_report' %}" class="btn btn-danger">
+        Download PDF
+    </a>
+</div>
+
+<div class="row">
+
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <h5>Total Users</h5>
+                <h2>{{ total_users }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <h5>Total Students</h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <h5>Total Instructors</h5>
+                <h2>{{ total_instructors }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 mb-4">
+        <div class="card text-white bg-dark">
+            <div class="card-body">
+                <h5>Total Courses</h5>
+                <h2>{{ total_courses }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <h5>Total Lessons</h5>
+                <h2>{{ total_lessons }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-secondary">
+            <div class="card-body">
+                <h5>Total Enrollments</h5>
+                <h2>{{ total_enrollments }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="card text-white bg-danger">
+            <div class="card-body">
+                <h5>Total Progress Records</h5>
+                <h2>{{ total_progress }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<hr>
+
+<h3>System Summary</h3>
+
+<table class="table table-bordered mt-3">
+    <tr><th>Total Users</th><td>{{ total_users }}</td></tr>
+    <tr><th>Total Students</th><td>{{ total_students }}</td></tr>
+    <tr><th>Total Instructors</th><td>{{ total_instructors }}</td></tr>
+    <tr><th>Total Courses</th><td>{{ total_courses }}</td></tr>
+    <tr><th>Total Lessons</th><td>{{ total_lessons }}</td></tr>
+    <tr><th>Total Enrollments</th><td>{{ total_enrollments }}</td></tr>
+    <tr><th>Total Progress Records</th><td>{{ total_progress }}</td></tr>
+</table>
+
+<hr>
+
+<h3 class="mt-4">System Statistics</h3>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <canvas id="lmsChart"></canvas>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx = document.getElementById("lmsChart");
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: [
+                "Users",
+                "Students",
+                "Instructors",
+                "Courses",
+                "Lessons",
+                "Enrollments",
+                "Progress"
+            ],
+            datasets: [{
+                label: "LMS Statistics",
+                data: [
+                    Number("{{ total_users }}"),
+                    Number("{{ total_students }}"),
+                    Number("{{ total_instructors }}"),
+                    Number("{{ total_courses }}"),
+                    Number("{{ total_lessons }}"),
+                    Number("{{ total_enrollments }}"),
+                    Number("{{ total_progress }}")
+                ],
+                backgroundColor: [
+                    "#0d6efd",
+                    "#198754",
+                    "#0dcaf0",
+                    "#212529",
+                    "#ffc107",
+                    "#6c757d",
+                    "#dc3545"
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+});
+</script>
+
+{% endblock %}
