@@ -1,0 +1,171 @@
+{% extends "auth_base.html" %}
+{% load static %}
+
+{% block title %}LearnPro - Login{% endblock %}
+
+{% block content %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+<div class="login-page">
+
+    <!-- Background Effects -->
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+    <!-- Left Side -->
+    <div class="left-side">
+
+        <div class="logo">
+            🎓 LearnPro
+        </div>
+
+        <div class="left-content">
+
+            <h1>
+                Learn <br>
+                Without <br>
+                Limits
+            </h1>
+
+            <p>
+                Upgrade your skills with premium courses,
+                expert instructors and real-world projects.
+            </p>
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    <i class="bi bi-play-circle-fill"></i>
+                    <span>500+ Video Courses</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-award-fill"></i>
+                    <span>Certification Programs</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-laptop-fill"></i>
+                    <span>Learn Anywhere</span>
+                </div>
+
+                <div class="feature">
+                    <i class="bi bi-person-video3"></i>
+                    <span>Expert Mentors</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Right Side -->
+
+    <div class="right-side">
+
+        <div class="login-card">
+
+            <div class="user-icon">
+
+                <i class="bi bi-person-circle"></i>
+
+            </div>
+
+            <h2>Welcome Back</h2>
+
+            <p class="sub-title">
+                Login to continue learning
+            </p>
+
+           <form method="POST" action="{% url 'user_login' %}">
+
+    {% csrf_token %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-danger">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+    <div class="input-group-custom">
+
+        <i class="bi bi-person-fill"></i>
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required>
+
+    </div>
+
+    <div class="input-group-custom">
+
+        <i class="bi bi-lock-fill"></i>
+
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required>
+
+    </div>
+
+    <div class="options">
+
+        <label>
+
+            <input type="checkbox">
+
+            Remember Me
+
+        </label>
+
+        <a href="#">
+
+            Forgot Password?
+
+        </a>
+
+    </div>
+
+    <button
+        class="login-btn"
+        type="submit">
+
+        <i class="bi bi-box-arrow-in-right"></i>
+
+        Login
+
+    </button>
+
+</form>
+
+            <div class="register">
+
+                Don't have an account?
+
+                <a href="{% url 'register' %}">
+    Create Account
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

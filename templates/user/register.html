@@ -1,0 +1,145 @@
+{% extends "auth_base.html" %}
+{% load static %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+
+<div class="login-page">
+
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+
+    <div class="left-side">
+
+        <div class="logo">
+            🎓 LearnPro
+        </div>
+
+        <div class="left-content">
+
+            <h1>
+                Join <br>
+                LearnPro
+            </h1>
+
+            <p>
+                Create your account and start learning today.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="right-side">
+
+        <div class="login-card">
+
+            <div class="user-icon">
+                <i class="bi bi-person-plus-fill"></i>
+            </div>
+
+            <h2>Create Account</h2>
+
+            <p class="sub-title">
+                Register as a Student
+            </p>
+             
+            {% if messages %}
+
+    {% for message in messages %}
+
+        <div class="alert alert-info">
+
+            {{ message }}
+
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="input-group-custom">
+
+                    <input
+                        type="text"
+                        name="full_name"
+                        placeholder="Full Name"
+                        required>
+
+                </div>
+
+                <div class="input-group-custom">
+
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        required>
+
+                </div>
+
+                <div class="input-group-custom">
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        required>
+
+                </div>
+
+                <div class="input-group-custom">
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        required>
+
+                </div>
+
+                <div class="input-group-custom">
+
+                    <input
+                        type="password"
+                        name="confirm_password"
+                        placeholder="Confirm Password"
+                        required>
+
+                </div>
+
+                <button
+                    class="login-btn"
+                    type="submit">
+
+                    Create Account
+
+                </button>
+
+            </form>
+
+            <div class="register">
+
+                Already have an account?
+
+                <a href="{% url 'user_login' %}">
+
+                    Login
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

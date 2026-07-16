@@ -1,0 +1,254 @@
+{% extends "user/user_base.html" %}
+
+{% block title %}Course Details{% endblock %}
+
+{% block content %}
+
+<div class="topbar">
+
+    <div>
+
+        <h2>{{ course.title }}</h2>
+
+        <p>{{ course.description }}</p>
+
+    </div>
+
+</div>
+
+<div class="row">
+
+<div class="col-12 mb-4">
+
+    <div class="card shadow-lg border-0 rounded-4 p-4">
+
+    {% if selected_lesson %}
+
+    <h3 id="videoTitle">
+        {{ selected_lesson.title }}
+    </h3>
+
+    <!-- Mark Complete Button -->
+
+    <!-- Next Lesson Button -->
+
+    <!-- Certificate Button -->
+
+    <!-- Video iframe -->
+
+    <!-- Description -->
+
+    <p id="videoContent">
+        {{ selected_lesson.content }}
+    </p>
+
+    {% else %}
+
+    <div class="alert alert-warning">
+
+        <h4>No lessons available.</h4>
+
+        <p>Please contact the administrator.</p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+        
+
+        <br>
+
+        <div class="ratio ratio-16x9">
+
+           <iframe
+    id="lessonVideo"
+    width="100%"
+    height="500"
+    src=""
+    title="Lesson Video"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+</iframe>
+
+        </div>
+
+        <br>
+
+        <p id="videoContent">
+
+            {{ selected_lesson.content }}
+
+        </p>
+
+    </div>
+
+</div>    
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+
+            <h3>Course Lessons</h3>
+
+            <hr>
+
+            {% for lesson in lessons %}
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div>
+
+                    <h5>{{ lesson.title }}</h5>
+
+                    <small class="text-muted">
+
+                        {{ lesson.content|truncatewords:15 }}
+
+                    </small>
+
+                </div>
+
+      <button
+    class="btn btn-primary lesson-btn"
+    data-video="{{ lesson.video_url }}"
+    data-title="{{ lesson.title }}"
+    data-content="{{ lesson.content }}"
+    data-lesson="{{ lesson.id }}">
+
+    ▶ Watch
+
+</button>
+            </div>
+
+            <hr>
+
+            {% empty %}
+
+            <h5>No lessons available.</h5>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg border-0 rounded-4 p-4">
+
+            <h4>Your Progress</h4>
+
+            <br>
+
+             <div
+    id="progressBar"
+    class="progress-bar bg-success"
+    role="progressbar"
+    data-progress="{{ progress.progress_percent }}"
+    aria-valuemin="0"
+    aria-valuemax="100">
+
+    {{ progress.progress_percent }}%
+
+</div>
+
+            </div>
+
+            <p>
+
+                Completed Lessons :
+
+                {{ progress.completed_lessons }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const progressBar = document.getElementById("progressBar");
+
+    progressBar.style.width =
+        progressBar.dataset.progress + "%";
+
+});
+
+</script>
+
+<script>
+function convertYoutube(url) {
+
+    if (!url) return "";
+
+    // Already an embed URL
+    if (url.includes("/embed/")) {
+        return url;
+    }
+
+    // Normal YouTube URL
+    if (url.includes("watch?v=")) {
+        const videoId = url.split("watch?v=")[1].split("&")[0];
+        return "https://www.youtube.com/embed/" + videoId;
+    }
+
+    // Short YouTube URL
+    if (url.includes("youtu.be/")) {
+        const videoId = url.split("youtu.be/")[1].split("?")[0];
+        return "https://www.youtube.com/embed/" + videoId;
+    }
+
+    return url;
+}
+
+const iframe =
+document.getElementById("lessonVideo");
+
+const firstVideo =
+"{{ selected_lesson.video_url }}";
+
+iframe.src =
+convertYoutube(firstVideo);
+
+
+
+document
+.querySelectorAll(".lesson-btn")
+.forEach(function(btn){
+
+    btn.onclick = function(){
+
+        iframe.src =
+        convertYoutube(
+            this.dataset.video
+        );
+
+        document
+        .getElementById("videoTitle")
+        .innerText =
+        this.dataset.title;
+
+        document
+        .getElementById("videoContent")
+        .innerText =
+        this.dataset.content;
+
+        document.getElementById("completeBtn").href =
+        "/lesson/" + this.dataset.lesson + "/complete/";
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

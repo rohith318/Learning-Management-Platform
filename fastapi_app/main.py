@@ -11,6 +11,8 @@ from fastapi_app.routers import users
 from fastapi_app.routers import courses
 from fastapi_app.routers import enrollments
 from fastapi_app.routers import progress
+from fastapi_app.routers import subscriptions
+from fastapi_app.routers import payments
 
 app = FastAPI(
     title="Learning Management Platform API",
@@ -22,6 +24,8 @@ app.include_router(users.router)
 app.include_router(courses.router)
 app.include_router(enrollments.router)
 app.include_router(progress.router)
+app.include_router(subscriptions.router)
+app.include_router(payments.router)
 
 @app.get("/")
 def root():

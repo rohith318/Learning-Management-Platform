@@ -6,7 +6,10 @@ from courses.models import (
     Lesson,
     Enrollment,
     Progress,
+    Payment,
 )
+from django.db.models import Sum
+
 
 
 @login_required

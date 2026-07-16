@@ -1,0 +1,160 @@
+{% extends "user/user_base.html" %}
+{% load static %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="topbar">
+
+    <div>
+
+        <h2>Welcome Back 👋</h2>
+
+        <p>Continue your learning journey today.</p>
+
+    </div>
+
+    <div class="top-right">
+
+        <div class="search-box">
+
+            <i class="bi bi-search"></i>
+
+            <input
+                type="text"
+                placeholder="Search courses...">
+
+        </div>
+
+        <div class="profile">
+
+            <img
+                src="https://i.pravatar.cc/100"
+                alt="profile">
+
+            <div>
+
+                <h5>{{ request.user.full_name }}</h5>
+
+                <small>{{ request.user.role|title }}</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="cards">
+
+    <div class="card-box">
+
+        <div>
+
+            <h5>Total Courses</h5>
+
+            <h2>{{ total_courses }}</h2>
+
+        </div>
+
+        <i class="bi bi-play-circle-fill"></i>
+
+    </div>
+
+    <div class="card-box">
+
+        <div>
+
+            <h5>Completed</h5>
+
+            <h2>{{ completed_courses }}</h2>
+
+        </div>
+
+        <i class="bi bi-check-circle-fill"></i>
+
+    </div>
+
+    <div class="card-box">
+
+        <div>
+
+            <h5>Certificates</h5>
+
+            <h2>5</h2>
+
+        </div>
+
+        <i class="bi bi-award-fill"></i>
+
+    </div>
+
+    <div class="card-box">
+
+        <div>
+
+            <h5>Subscription</h5>
+
+            <h2>
+
+                {% if subscription %}
+                    {{ subscription.plan.name }}
+                {% else %}
+                    No Plan
+                {% endif %}
+
+            </h2>
+
+        </div>
+
+        <i class="bi bi-stars"></i>
+
+    </div>
+
+</div>
+
+<h2 class="section-title">
+
+    Continue Learning
+
+</h2>
+
+<div class="course-grid">
+
+{% for course in recent_courses %}
+
+<div class="course-card">
+
+    <img src="https://picsum.photos/500/300?random={{ course.id }}">
+
+    <div class="course-body">
+
+        <span>{{ course.status }}</span>
+
+        <h4>{{ course.title }}</h4>
+
+        <p>{{ course.description|truncatewords:10 }}</p>
+
+        <button>
+
+            Continue Learning
+
+        </button>
+
+    </div>
+
+</div>
+
+{% empty %}
+
+<h3>No Courses Available</h3>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

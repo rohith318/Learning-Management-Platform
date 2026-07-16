@@ -1,0 +1,75 @@
+{% extends "user/user_base.html" %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="card shadow-lg p-5 text-center">
+
+        <div class="mb-4">
+
+            <h1 style="font-size:70px;">✅</h1>
+
+        </div>
+
+        <h2 class="text-success">
+
+            Payment Successful
+
+        </h2>
+
+        <hr>
+
+        <h4>
+
+            Subscription Activated Successfully
+
+        </h4>
+
+        <br>
+
+        <h3>
+
+            {{ subscription.plan.name }}
+
+        </h3>
+
+        <h2>
+
+            ₹{{ payment.amount }}
+
+        </h2>
+
+        <br>
+
+        <p>
+
+            Start Date :
+            {{ subscription.start_date }}
+
+        </p>
+
+        <p>
+
+            End Date :
+            {{ subscription.end_date }}
+
+        </p>
+
+        <br>
+
+        <a
+            href="{% url 'user_dashboard' %}"
+            class="btn btn-success btn-lg">
+
+            Go To Dashboard
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

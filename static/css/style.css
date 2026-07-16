@@ -2,180 +2,387 @@
    GLOBAL
 =========================== */
 
-body{
+*{
     margin:0;
     padding:0;
-    background:#f5f7fb;
-    font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif;
+    box-sizing:border-box;
 }
 
-a{
-    text-decoration:none;
-}
+body{
 
-/* ===========================
-   NAVBAR
-=========================== */
+    font-family:'Segoe UI',sans-serif;
 
-.navbar{
-    height:65px;
-    background:#2563eb !important;
-    box-shadow:0 2px 12px rgba(0,0,0,.15);
-}
+    background:linear-gradient(135deg,#021B79,#0B3D91,#2563EB);
 
-.navbar-brand{
-    font-size:24px;
-    font-weight:700;
-}
-
-.navbar .btn{
-    border-radius:8px;
-}
-
-/* ===========================
-   SIDEBAR
-=========================== */
-
-.sidebar{
-
-    background:#1e293b;
-
-    min-height:calc(100vh - 65px);
-
-    padding-top:20px;
-
-}
-
-.sidebar-header{
-
-    color:white;
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    padding:20px;
-
-}
-
-.sidebar-link{
-
-    display:block;
-
-    color:white;
-
-    padding:15px 25px;
-
-    transition:.3s;
-
-    font-size:16px;
-
-}
-
-.sidebar-link i{
-
-    margin-right:10px;
-
-}
-
-.sidebar-link:hover{
-
-    background:#2563eb;
-
-    color:white;
-
-}
-
-/* ===========================
-   CONTENT
-=========================== */
-
-.content{
-
-    padding:30px;
-
-}
-
-/* ===========================
-   CARDS
-=========================== */
-
-.dashboard-card{
-
-    border:none;
-
-    border-radius:16px;
-
-    color:white;
-
-    padding:20px;
-
-    margin-bottom:25px;
-
-    box-shadow:0 10px 20px rgba(0,0,0,.12);
-
-}
-
-.dashboard-card h5{
-
-    font-size:20px;
-
-}
-
-.dashboard-card h2{
-
-    font-size:38px;
-
-    font-weight:bold;
-
-}
-
-/* ===========================
-   TABLE
-=========================== */
-
-.table{
-
-    background:white;
-
-    border-radius:12px;
+    min-height:100vh;
 
     overflow:hidden;
-
-}
-
-.table thead{
-
-    background:#1f2937;
-
-    color:white;
-
 }
 
 /* ===========================
-   PAGE TITLE
+   LOGIN PAGE
 =========================== */
 
-.page-title{
+.login-page{
+
+    display:flex;
+
+    min-height:100vh;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+/* Floating Background */
+
+.circle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    filter:blur(30px);
+
+    opacity:.35;
+
+    animation:float 8s ease-in-out infinite;
+}
+
+.circle1{
+
+    width:380px;
+    height:380px;
+
+    background:#00C6FF;
+
+    top:-130px;
+    left:-130px;
+}
+
+.circle2{
+
+    width:280px;
+    height:280px;
+
+    background:#7C3AED;
+
+    right:-80px;
+    bottom:-70px;
+
+    animation-delay:2s;
+}
+
+.circle3{
+
+    width:180px;
+    height:180px;
+
+    background:#38BDF8;
+
+    top:45%;
+    left:48%;
+
+    animation-delay:4s;
+}
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+    }
+
+    50%{
+
+        transform:translateY(-25px);
+    }
+
+    100%{
+
+        transform:translateY(0px);
+    }
+}
+
+/* ===========================
+ LEFT SIDE
+=========================== */
+
+.left-side{
+
+    width:55%;
+
+    padding:70px;
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    z-index:2;
+}
+
+.logo{
+
+    position:absolute;
+
+    top:40px;
+
+    left:60px;
 
     font-size:34px;
 
+    font-weight:700;
+}
+
+.left-content h1{
+
+    font-size:72px;
+
+    line-height:80px;
+
     font-weight:bold;
+}
 
-    margin-bottom:30px;
+.left-content p{
 
+    margin-top:25px;
+
+    width:75%;
+
+    color:#d8e7ff;
+
+    line-height:30px;
+
+    font-size:18px;
+}
+
+.feature-list{
+
+    margin-top:45px;
+}
+
+.feature{
+
+    display:flex;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.feature i{
+
+    width:60px;
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.15);
+
+    font-size:28px;
+
+    margin-right:20px;
+}
+
+.feature span{
+
+    font-size:20px;
 }
 
 /* ===========================
-   RESPONSIVE
+ RIGHT
 =========================== */
 
-@media(max-width:768px){
+.right-side{
 
-.sidebar{
+    width:45%;
 
-min-height:auto;
+    display:flex;
 
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:2;
+}
+
+.login-card{
+
+    width:460px;
+
+    padding:40px;
+
+    border-radius:28px;
+
+    backdrop-filter:blur(20px);
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:0 30px 70px rgba(0,0,0,.35);
+
+    color:white;
+}
+
+.user-icon{
+
+    text-align:center;
+
+    font-size:90px;
+
+    color:#fff;
+
+    margin-bottom:10px;
+}
+
+.login-card h2{
+
+    text-align:center;
+
+    font-size:36px;
+}
+
+.sub-title{
+
+    text-align:center;
+
+    color:#dbeafe;
+
+    margin-bottom:35px;
+}
+
+.input-group-custom{
+
+    position:relative;
+
+    margin-bottom:25px;
+}
+
+.input-group-custom i{
+
+    position:absolute;
+
+    left:18px;
+
+    top:18px;
+
+    color:#94A3B8;
+}
+
+.input-group-custom input{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    background:white;
+
+    padding-left:55px;
+
+    font-size:16px;
+}
+
+.options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:30px;
+
+    font-size:14px;
+}
+
+.options a{
+
+    color:#ffffff;
+
+    text-decoration:none;
+}
+
+.login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:linear-gradient(90deg,#2563EB,#7C3AED);
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.login-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 20px 35px rgba(37,99,235,.45);
+}
+
+.register{
+
+    text-align:center;
+
+    margin-top:30px;
+}
+
+.register a{
+
+    color:#FACC15;
+
+    text-decoration:none;
+
+    font-weight:600;
+}
+
+/* ===========================
+ MOBILE
+=========================== */
+
+@media(max-width:992px){
+
+.left-side{
+
+display:none;
+
+}
+
+.right-side{
+
+width:100%;
+
+padding:20px;
+}
+
+.login-card{
+
+width:100%;
 }
 
 }

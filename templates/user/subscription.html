@@ -1,0 +1,86 @@
+{% extends "user/user_base.html" %}
+
+{% block title %}Subscription{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2 class="text-white mb-4">
+
+        Subscription Plans
+
+    </h2>
+
+    <div class="row">
+
+        {% for plan in plans %}
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow-lg h-100">
+
+                <div class="card-body text-center">
+
+                    <h3>
+
+                        {{ plan.name }}
+
+                    </h3>
+
+                    <h1 class="text-primary">
+
+                        ₹{{ plan.price }}
+
+                    </h1>
+
+                    <p>
+
+                        {{ plan.duration_days }} Days
+
+                    </p>
+
+                    {% if subscription and subscription.plan.id == plan.id %}
+
+                        <button
+                            class="btn btn-success w-100"
+                            disabled>
+
+                            Current Plan
+
+                        </button>
+
+                    {% else %}
+
+                        
+                        <a
+    href="{% url 'buy_plan' plan.id %}"
+    class="btn btn-primary w-100">
+
+    Buy Now
+
+</a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <h3 class="text-white">
+
+            No Plans Available
+
+        </h3>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

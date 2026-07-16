@@ -1,65 +1,127 @@
-# Learning Management Platform
+# Subscription-Based Video Learning Platform
 
 ## Project Overview
 
-This project is a Learning Management Platform developed using Django and FastAPI.
+This project is a Subscription-Based Video Learning Platform developed using **Django** and **FastAPI**.
 
 - Django is used for the Admin Panel.
-- FastAPI is used for the User Panel APIs.
-- Both applications share the same database.
+- FastAPI is used for the User APIs.
+- Both applications share the same SQLite database.
+- JWT Authentication is used for secure API access.
 
 ---
 
-## Technologies Used
+# Technologies Used
 
-- Python
+- Python 3
 - Django
 - FastAPI
-- SQLite (Development)
+- SQLite
 - JWT Authentication
 - Bootstrap 5
-- HTML
-- CSS
+- HTML5
+- CSS3
 - JavaScript
 - ReportLab
+- Uvicorn
 
 ---
 
-## Features
+# Features
 
-### Django Admin Panel
+## Django Admin Panel
 
 - Admin Login
 - Dashboard
 - User Management
 - Course Management
 - Lesson Management
+- Subscription Plan Management
 - Enrollment Management
 - Progress Management
-- Reports Dashboard
-- PDF Report Generation
-
-### FastAPI User Panel
-
-- User Registration API
-- User Login API
-- JWT Authentication
-- Protected API (/users/me)
-- Courses API
-- Enrollment API
-- Progress API
+- Payment Management
+- Certificate Generation
+- Invoice PDF Generation
 
 ---
 
-## Installation
+## FastAPI APIs
 
-### Create Virtual Environment
+### User APIs
+
+- Register User
+- Login User
+- Get Current User
+
+### Course APIs
+
+- Get All Courses
+- Get Course By ID
+- Get Subscription Plans
+- Get Premium Courses
+
+### Enrollment APIs
+
+- Enroll Student
+
+### Progress APIs
+
+- Update Course Progress
+- Get User Progress
+
+### Subscription APIs
+
+- Purchase Subscription
+
+### Payment APIs
+
+- Payment History
+
+---
+
+# User Panel Features
+
+- User Registration
+- User Login
+- Student Dashboard
+- My Courses
+- Course Details
+- Embedded YouTube Video Learning
+- Mark Lesson as Completed
+- Next Lesson Navigation
+- Course Progress Tracking
+- Buy Subscription
+- Payment Success Page
+- Payment History
+- Download Certificate
+- Download Invoice
+- User Profile
+
+---
+
+# Installation
+
+## Clone Repository
+
+```bash
+git clone <YOUR_GITHUB_REPOSITORY_URL>
+```
+
+```bash
+cd Learning_Management_Platform
+```
+
+---
+
+## Create Virtual Environment
 
 ```bash
 python -m venv venv
 ```
 
-### Activate
+---
+
+## Activate Virtual Environment
 
 Windows
 
@@ -67,27 +129,47 @@ Windows
 venv\Scripts\activate
 ```
 
-### Install Packages
+---
+
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Run Django
+---
+
+## Run Django
+
+```bash
+python manage.py migrate
+```
 
 ```bash
 python manage.py runserver
 ```
 
-### Run FastAPI
+Django URL
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+## Run FastAPI
 
 ```bash
 uvicorn fastapi_app.main:app --reload --port 8001
 ```
 
----
+FastAPI URL
 
-## API Documentation
+```
+http://127.0.0.1:8001
+```
+
+Swagger Documentation
 
 ```
 http://127.0.0.1:8001/docs
@@ -95,14 +177,112 @@ http://127.0.0.1:8001/docs
 
 ---
 
-## Admin Panel
+# FastAPI Endpoints
+
+## Users
+
+POST /users/register
+
+POST /users/login
+
+GET /users/me
+
+---
+
+## Courses
+
+GET /courses/
+
+GET /courses/{course_id}
+
+GET /courses/plans/
+
+GET /courses/premium/
+
+---
+
+## Enrollment
+
+POST /enrollment/
+
+---
+
+## Progress
+
+POST /progress/
+
+GET /progress/{user_id}
+
+---
+
+## Subscription
+
+POST /subscribe/
+
+---
+
+## Payments
+
+GET /payments/
+
+---
+
+# Project Structure
 
 ```
-http://127.0.0.1:8000/login/
+Learning_Management_Platform/
+
+│── accounts/
+
+│── courses/
+
+│── dashboard/
+
+│── fastapi_app/
+
+│── templates/
+
+│── static/
+
+│── manage.py
+
+│── requirements.txt
+
+│── README.md
 ```
 
 ---
 
-## Developed By
+# Project Deliverables
 
-Rohith Raj
+- Source Code
+- GitHub Repository
+- README Documentation
+- Postman Collection
+- Django Admin Panel
+- FastAPI APIs
+- JWT Authentication
+- Certificate Generation
+- Invoice PDF Generation
+
+---
+
+# Future Enhancements
+
+- Stripe Payment Gateway
+- Razorpay Integration
+- Email Notifications
+- Live Classes
+- Quiz & Assessment Module
+- Discussion Forum
+- Video Upload to Cloud Storage
+
+---
+
+# Developed By
+
+**Rohith Raj**
+
+Subscription-Based Video Learning Platform
+
+Developed using Django + FastAPI

@@ -1,6 +1,13 @@
 from django.urls import path
 from . import views
 from . import views
+from dashboard.user_views import (
+    user_login,
+    user_dashboard,
+    my_courses,
+    user_logout,
+    register,
+)
 
 urlpatterns = [
     path("", views.user_list, name="user_list"),
@@ -11,5 +18,11 @@ urlpatterns = [
     "forgot-password/",
     views.forgot_password,
     name="forgot_password",
+),
+
+path(
+    "user/register/",
+    register,
+    name="register",
 ),
 ]
