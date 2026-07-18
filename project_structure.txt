@@ -1,0 +1,200 @@
+Folder PATH listing
+Volume serial number is 00000024 1EB3:BFD4
+C:.
+¦   .env
+¦   .gitignore
+¦   db.sqlite3
+¦   manage.py
+¦   project_structure.txt
+¦   README.md
+¦   requirements.txt
+¦   
++---accounts
+¦   ¦   admin.py
+¦   ¦   apps.py
+¦   ¦   forms.py
+¦   ¦   models.py
+¦   ¦   tests.py
+¦   ¦   urls.py
+¦   ¦   views.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---migrations
+¦   ¦   ¦   0001_initial.py
+¦   ¦   ¦   0002_alter_user_email.py
+¦   ¦   ¦   __init__.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           0001_initial.cpython-313.pyc
+¦   ¦           0002_alter_user_email.cpython-313.pyc
+¦   ¦           __init__.cpython-313.pyc
+¦   ¦           
+¦   +---__pycache__
+¦           admin.cpython-313.pyc
+¦           apps.cpython-313.pyc
+¦           forms.cpython-313.pyc
+¦           models.cpython-313.pyc
+¦           urls.cpython-313.pyc
+¦           views.cpython-313.pyc
+¦           __init__.cpython-313.pyc
+¦           
++---admin
+¦   ¦   asgi.py
+¦   ¦   settings.py
+¦   ¦   urls.py
+¦   ¦   wsgi.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           settings.cpython-313.pyc
+¦           urls.cpython-313.pyc
+¦           wsgi.cpython-313.pyc
+¦           __init__.cpython-313.pyc
+¦           
++---courses
+¦   ¦   admin.py
+¦   ¦   apps.py
+¦   ¦   forms.py
+¦   ¦   models.py
+¦   ¦   tests.py
+¦   ¦   urls.py
+¦   ¦   views.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---migrations
+¦   ¦   ¦   0001_initial.py
+¦   ¦   ¦   0002_plan_course_instructor_commission_course_is_premium_and_more.py
+¦   ¦   ¦   0003_completedlesson.py
+¦   ¦   ¦   __init__.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           0001_initial.cpython-313.pyc
+¦   ¦           0002_plan_course_instructor_commission_course_is_premium_and_more.cpython-313.pyc
+¦   ¦           0003_completedlesson.cpython-313.pyc
+¦   ¦           __init__.cpython-313.pyc
+¦   ¦           
+¦   +---__pycache__
+¦           admin.cpython-313.pyc
+¦           apps.cpython-313.pyc
+¦           forms.cpython-313.pyc
+¦           models.cpython-313.pyc
+¦           urls.cpython-313.pyc
+¦           views.cpython-313.pyc
+¦           __init__.cpython-313.pyc
+¦           
++---dashboard
+¦   ¦   admin.py
+¦   ¦   apps.py
+¦   ¦   models.py
+¦   ¦   tests.py
+¦   ¦   urls.py
+¦   ¦   user_views.py
+¦   ¦   views.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---migrations
+¦   ¦   ¦   __init__.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           __init__.cpython-313.pyc
+¦   ¦           
+¦   +---__pycache__
+¦           admin.cpython-313.pyc
+¦           apps.cpython-313.pyc
+¦           models.cpython-313.pyc
+¦           urls.cpython-313.pyc
+¦           user_views.cpython-313.pyc
+¦           views.cpython-313.pyc
+¦           __init__.cpython-313.pyc
+¦           
++---fastapi_app
+¦   ¦   auth.py
+¦   ¦   config.py
+¦   ¦   database.py
+¦   ¦   dependencies.py
+¦   ¦   main.py
+¦   ¦   models.py
+¦   ¦   schemas.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---routers
+¦   ¦   ¦   courses.py
+¦   ¦   ¦   enrollments.py
+¦   ¦   ¦   payments.py
+¦   ¦   ¦   progress.py
+¦   ¦   ¦   subscriptions.py
+¦   ¦   ¦   users.py
+¦   ¦   ¦   __init__.py
+¦   ¦   ¦   
+¦   ¦   +---__pycache__
+¦   ¦           courses.cpython-313.pyc
+¦   ¦           enrollments.cpython-313.pyc
+¦   ¦           payments.cpython-313.pyc
+¦   ¦           progress.cpython-313.pyc
+¦   ¦           subscriptions.cpython-313.pyc
+¦   ¦           users.cpython-313.pyc
+¦   ¦           __init__.cpython-313.pyc
+¦   ¦           
+¦   +---__pycache__
+¦           auth.cpython-313.pyc
+¦           database.cpython-313.pyc
+¦           dependencies.cpython-313.pyc
+¦           main.cpython-313.pyc
+¦           models.cpython-313.pyc
+¦           schemas.cpython-313.pyc
+¦           __init__.cpython-313.pyc
+¦           
++---static
+¦   +---css
+¦           dashboard.css
+¦           style.css
+¦           
++---templates
+    ¦   auth_base.html
+    ¦   base.html
+    ¦   
+    +---accounts
+    ¦       user_form.html
+    ¦       user_list.html
+    ¦       
+    +---courses
+    ¦       course_form.html
+    ¦       course_list.html
+    ¦       
+    +---dashboard
+    ¦       index.html
+    ¦       
+    +---enrollments
+    ¦       enrollment_form.html
+    ¦       enrollment_list.html
+    ¦       
+    +---lessons
+    ¦       lesson_form.html
+    ¦       lesson_list.html
+    ¦       
+    +---progress
+    ¦       progress_form.html
+    ¦       progress_list.html
+    ¦       
+    +---registration
+    ¦       forgot_password.html
+    ¦       login.html
+    ¦       password_reset_done.html
+    ¦       password_reset_form.html
+    ¦       
+    +---user
+        ¦   courses.html
+        ¦   course_details.html
+        ¦   dashboard.html
+        ¦   edit_profile.html
+        ¦   login.html
+        ¦   payments.html
+        ¦   payment_success.html
+        ¦   profile.html
+        ¦   register.html
+        ¦   subscription.html
+        ¦   user_base.html
+        ¦   
+        +---courses
+        +---payments
+        +---profile

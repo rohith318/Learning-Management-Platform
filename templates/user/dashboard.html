@@ -10,23 +10,18 @@ Dashboard
 <div class="topbar">
 
     <div>
-
         <h2>Welcome Back 👋</h2>
-
         <p>Continue your learning journey today.</p>
-
     </div>
 
     <div class="top-right">
 
         <div class="search-box">
-
             <i class="bi bi-search"></i>
-
             <input
                 type="text"
+                id="courseSearch"
                 placeholder="Search courses...">
-
         </div>
 
         <div class="profile">
@@ -36,11 +31,8 @@ Dashboard
                 alt="profile">
 
             <div>
-
                 <h5>{{ request.user.full_name }}</h5>
-
                 <small>{{ request.user.role|title }}</small>
-
             </div>
 
         </div>
@@ -52,61 +44,39 @@ Dashboard
 <div class="cards">
 
     <div class="card-box">
-
         <div>
-
             <h5>Total Courses</h5>
-
             <h2>{{ total_courses }}</h2>
-
         </div>
-
         <i class="bi bi-play-circle-fill"></i>
-
     </div>
 
     <div class="card-box">
-
         <div>
-
             <h5>Completed</h5>
-
             <h2>{{ completed_courses }}</h2>
-
         </div>
-
         <i class="bi bi-check-circle-fill"></i>
-
     </div>
 
     <div class="card-box">
-
         <div>
-
             <h5>Certificates</h5>
-
             <h2>5</h2>
-
         </div>
-
         <i class="bi bi-award-fill"></i>
-
     </div>
 
     <div class="card-box">
-
         <div>
-
             <h5>Subscription</h5>
 
             <h2>
-
                 {% if subscription %}
                     {{ subscription.plan.name }}
                 {% else %}
                     No Plan
                 {% endif %}
-
             </h2>
 
         </div>
@@ -118,34 +88,42 @@ Dashboard
 </div>
 
 <h2 class="section-title">
-
     Continue Learning
-
 </h2>
 
-<div class="course-grid">
+<div class="course-grid" id="courseGrid">
 
 {% for course in recent_courses %}
 
 <div class="course-card">
 
-    <img src="https://picsum.photos/500/300?random={{ course.id }}">
+    <img src="https://picsum.photos/500/300?random={{ course.id }}" alt="{{ course.title }}">
 
     <div class="course-body">
 
-        <span>{{ course.status }}</span>
+    <span>{{ course.status|default:"Active" }}</span>
 
-        <h4>{{ course.title }}</h4>
+    <h4>
+    {% if course.title %}
+        {{ course.title }}
+    {% else %}
+        Learning Management System
+    {% endif %}
+</h4>
 
-        <p>{{ course.description|truncatewords:10 }}</p>
+<p>
+    {% if course.description %}
+        {{ course.description|truncatewords:10 }}
+    {% else %}
+        Learn with interactive lessons and track your progress.
+    {% endif %}
+</p>
 
-        <button>
+    <button>
+        Continue Learning
+    </button>
 
-            Continue Learning
-
-        </button>
-
-    </div>
+</div>
 
 </div>
 
@@ -156,5 +134,35 @@ Dashboard
 {% endfor %}
 
 </div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const search = document.getElementById("courseSearch");
+
+    const cards = document.querySelectorAll(".course-card");
+
+    search.addEventListener("keyup", function () {
+
+        const value = this.value.toLowerCase();
+
+        cards.forEach(function(card){
+
+            const text = card.innerText.toLowerCase();
+
+            if(text.includes(value)){
+                card.style.display = "";
+            }else{
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+});
+
+</script>
 
 {% endblock %}

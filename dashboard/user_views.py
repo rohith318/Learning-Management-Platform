@@ -8,9 +8,16 @@ from datetime import timedelta
 from django.utils import timezone
 import stripe
 from django.conf import settings
+from dashboard.models import ActivityLog
 from django.http import FileResponse
 import io
 from django.http import HttpResponse
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+from dashboard.models import ActivityLog   # <-- change app name if needed
+from django.core.mail import send_mail
+from django.conf import settings
+from dashboard.models import Notification
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -53,6 +60,17 @@ def user_login(request):
 
             login(request, user)
 
+            ActivityLog.objects.create(
+                user=user,
+                action_type="LOGIN",
+                action_detail="User logged in successfully"
+            )
+
+            Notification.objects.create(
+                user=user,
+                message="You logged in successfully."
+            )
+
             messages.success(
                 request,
                 "Login Successful!"
@@ -72,6 +90,46 @@ def user_login(request):
         "user/login.html",
     )
 
+@login_required
+def user_dashboard(request):
+
+    user = request.user
+
+    total_courses = Enrollment.objects.filter(
+        user=user
+    ).count()
+
+    completed_courses = Progress.objects.filter(
+        enrollment__user=user,
+        progress_percent=100
+    ).count()
+
+    total_payments = Payment.objects.filter(
+        user=user
+    ).count()
+
+    active_subscription = Subscription.objects.filter(
+        user=user,
+        status="active"
+    ).first()
+
+    recent_courses = Course.objects.order_by(
+        "-created_at"
+    )[:3]
+
+    context = {
+    "total_courses": total_courses,
+    "completed_courses": completed_courses,
+    "total_payments": total_payments,
+    "subscription": active_subscription,
+    "recent_courses": recent_courses,
+}
+
+    return render(
+        request,
+        "user/dashboard.html",
+        context,
+    )
 
 def register(request):
 
@@ -110,7 +168,7 @@ def register(request):
 
             return redirect("register")
 
-        user = User.objects.create_user(
+        User.objects.create_user(
             username=username,
             email=email,
             password=password,
@@ -128,48 +186,6 @@ def register(request):
     return render(
         request,
         "user/register.html",
-    )
-
-
-@login_required
-def user_dashboard(request):
-
-    user = request.user
-
-    total_courses = Enrollment.objects.filter(
-        user=user
-    ).count()
-
-    completed_courses = Progress.objects.filter(
-        enrollment__user=user,
-        progress_percent=100
-    ).count()
-
-    total_payments = Payment.objects.filter(
-        user=user
-    ).count()
-
-    active_subscription = Subscription.objects.filter(
-        user=user,
-        status="active"
-    ).first()
-
-    recent_courses = Course.objects.order_by(
-        "-created_at"
-    )[:3]
-
-    context = {
-        "total_courses": total_courses,
-        "completed_courses": completed_courses,
-        "total_payments": total_payments,
-        "active_subscription": active_subscription,
-        "recent_courses": recent_courses,
-    }
-
-    return render(
-        request,
-        "user/dashboard.html",
-        context,
     )
 
 
@@ -192,9 +208,16 @@ def my_courses(request):
         context,
     )
 
-
 @login_required
 def user_logout(request):
+
+    user = request.user
+
+    ActivityLog.objects.create(
+        user=user,
+        action_type="LOGOUT",
+        action_detail="User logged out successfully"
+    )
 
     logout(request)
 
@@ -308,7 +331,6 @@ def edit_profile(request):
         request,
         "user/edit_profile.html"
     )
-
 @login_required
 def payment_success(request):
 
@@ -337,22 +359,49 @@ def payment_success(request):
         status="active",
     )
 
-    Payment.objects.create(
+    payment = Payment.objects.create(
         user=request.user,
         plan=plan,
         amount=plan.price,
     )
+    Notification.objects.create(
+    user=request.user,
+    message=f"Your payment for {plan.name} subscription was successful."
+)
+
+    send_mail(
+    subject="Subscription Activated",
+    message=f"""
+Hi {request.user.full_name},
+
+Your subscription has been activated successfully.
+
+Plan: {plan.name}
+Amount: ₹{plan.price}
+
+Thank you for choosing LearnPro.
+""",
+    from_email=settings.DEFAULT_FROM_EMAIL,
+    recipient_list=[request.user.email],
+    fail_silently=False,
+)
+
+    ActivityLog.objects.create(
+        user=request.user,
+        action_type="PAYMENT",
+        action_detail=f"Payment of ₹{payment.amount} for {plan.name} subscription"
+    )
 
     return render(
-    request,
-    "user/payment_success.html",
-    {
-        "subscription": Subscription.objects.get(user=request.user),
-        "payment": Payment.objects.filter(
-            user=request.user
-        ).latest("payment_date"),
-    },
-)
+        request,
+        "user/payment_success.html",
+        {
+            "subscription": Subscription.objects.get(
+                user=request.user
+            ),
+            "payment": payment,
+        },
+    )
 
 @login_required
 def download_invoice(request, payment_id):

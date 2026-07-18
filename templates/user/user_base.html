@@ -20,7 +20,7 @@
 
     <!-- Dashboard CSS -->
 
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/user_dashboard.css' %}">
 
 </head>
 
@@ -41,61 +41,40 @@
         <ul>
 
             <li>
-
-                <a href="{% url 'user_dashboard' %}" class="sidebar-link">
-
-                    <i class="bi bi-grid-fill"></i>
-
-                    <span>Dashboard</span>
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="{% url 'my_courses' %}" class="sidebar-link">
-
-                    <i class="bi bi-play-circle-fill"></i>
-
-                    <span>My Courses</span>
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="{% url 'subscription' %}" class="sidebar-link">
-
-                    <i class="bi bi-credit-card-fill"></i>
-
-                    <span>Subscription</span>
-
-                </a>
-
-            </li>
-
-            <li>
-
-                <a href="{% url 'payments' %}" class="sidebar-link">
-
-    <i class="bi bi-wallet-fill"></i>
-
-    <span>Payments</span>
-
+           <a href="{% url 'user_dashboard' %}"
+   class="sidebar-link {% if request.resolver_match.url_name == 'user_dashboard' %}active{% endif %}">
+    <i class="bi bi-grid-fill"></i>
+    <span>Dashboard</span>
 </a>
 
             </li>
 
             <li>
 
-                <a href="{% url 'profile' %}" class="sidebar-link">
+                <a href="{% url 'my_courses' %}"
+   class="sidebar-link {% if request.resolver_match.url_name == 'my_courses' %}active{% endif %}">
+    <i class="bi bi-play-circle-fill"></i>
+    <span>My Courses</span>
+</a>
 
-    <i class="bi bi-person-fill"></i>
+            </li>
 
-    <span>Profile</span>
+            <li>
 
+                <a href="{% url 'subscription' %}"
+   class="sidebar-link {% if request.resolver_match.url_name == 'subscription' %}active{% endif %}">
+    <i class="bi bi-credit-card-fill"></i>
+    <span>Subscription</span>
+</a>
+
+            </li>
+
+            <li>
+
+            <a href="{% url 'payments' %}"
+   class="sidebar-link {% if request.resolver_match.url_name == 'payments' %}active{% endif %}">
+    <i class="bi bi-wallet-fill"></i>
+    <span>Payments</span>
 </a>
 
             </li>
@@ -103,12 +82,15 @@
             <li>
 
                 <a href="{% url 'user_logout' %}" class="sidebar-link">
+    <i class="bi bi-box-arrow-right"></i>
+    <span>Logout</span>
+</a>
 
-                    <i class="bi bi-box-arrow-right"></i>
+            </li>
 
-                    <span>Logout</span>
+            <li>
 
-                </a>
+                
 
             </li>
 

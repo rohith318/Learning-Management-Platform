@@ -1,120 +1,583 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Dashboard{% endblock %}
+
+{% block title %}Analytics Dashboard{% endblock %}
 
 {% block content %}
 
-<h2 class="mb-4">Dashboard</h2>
+<div class="container-fluid py-4">
 
-<div class="row">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <div class="col-md-3 mb-4">
-        <div class="card bg-primary text-white">
-            <div class="card-body">
-                <h5>Total Users</h5>
-                <h2>{{ total_users }}</h2>
-            </div>
+        <div>
+
+            <h2 class="fw-bold mb-1">
+                Analytics Dashboard
+            </h2>
+
+            <p class="text-muted mb-0">
+                Welcome back {{ request.user.username }}
+            </p>
+
         </div>
+
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card bg-success text-white">
-            <div class="card-body">
-                <h5>Total Students</h5>
-                <h2>{{ total_students }}</h2>
+    <!-- Row 1 -->
+
+    <div class="row g-4">
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-blue">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Total Users</small>
+
+                        <h2 class="mt-2">{{ total_users }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-people-fill display-5"></i>
+
+                </div>
+
             </div>
+
         </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-green">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Students</small>
+
+                        <h2 class="mt-2">{{ total_students }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-mortarboard-fill display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-cyan">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Instructors</small>
+
+                        <h2 class="mt-2">{{ total_instructors }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-person-workspace display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-darkcard">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Courses</small>
+
+                        <h2 class="mt-2">{{ total_courses }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-book-half display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card bg-info text-white">
-            <div class="card-body">
-                <h5>Total Instructors</h5>
-                <h2>{{ total_instructors }}</h2>
+    <!-- Row 2 -->
+
+    <div class="row g-4 mt-1">
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-yellow">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Lessons</small>
+
+                        <h2 class="mt-2">{{ total_lessons }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-journal-bookmark-fill display-5"></i>
+
+                </div>
+
             </div>
+
         </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-gray">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Enrollments</small>
+
+                        <h2 class="mt-2">{{ total_enrollments }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-person-check-fill display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-green">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Progress</small>
+
+                        <h2 class="mt-2">{{ total_progress }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-graph-up-arrow display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="card stat-card bg-red">
+
+                <div class="card-body d-flex justify-content-between">
+
+                    <div>
+
+                        <small>Revenue</small>
+
+                        <h2 class="mt-2">₹{{ monthly_revenue }}</h2>
+
+                    </div>
+
+                    <i class="bi bi-cash-stack display-5"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <div class="col-md-3 mb-4">
-        <div class="card bg-dark text-white">
-            <div class="card-body">
-                <h5>Total Courses</h5>
-                <h2>{{ total_courses }}</h2>
+    <!-- Chart + Popular Courses -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-8">
+
+            <div class="dashboard-panel">
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+
+                    <h4 class="fw-bold mb-0">
+
+                        Monthly Revenue
+
+                    </h4>
+
+                    <span class="badge bg-primary">
+
+                        Analytics
+
+                    </span>
+
+                </div>
+
+                <div class="chart-container">
+
+                    <canvas id="revenueChart"></canvas>
+
+                </div>
+
             </div>
+
         </div>
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-panel">
+
+                <h4 class="fw-bold mb-4">
+
+                    Popular Courses
+
+                </h4>
+
+                {% for course in popular_courses %}
+
+                <div class="mb-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <strong>
+
+                            {{ course.title }}
+
+                        </strong>
+
+                        <span class="badge bg-success">
+
+                            {{ course.total_enrollments }}
+
+                        </span>
+
+                    </div>
+
+                    <div class="progress mt-2">
+
+                        <div
+    class="progress-bar bg-primary course-progress"
+    data-progress="{{ course.progress }}"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="100">
+</div>
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <p class="text-muted">
+
+                    No Courses
+
+                </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+        <!-- Recent Activity -->
+
+    <div class="row mt-4">
+
+        <div class="col-12">
+
+            <div class="dashboard-panel">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h4 class="fw-bold mb-0">
+
+                        Recent Activity
+
+                    </h4>
+
+                    <span class="badge bg-success">
+
+                        Live
+
+                    </span>
+
+                </div>
+
+                {% for activity in recent_activity %}
+
+                <div class="d-flex align-items-start border-bottom pb-3 mb-3">
+
+                    <div class="me-3">
+
+                        <div class="rounded-circle bg-primary text-white d-flex justify-content-center align-items-center"
+                             style="width:45px;height:45px;">
+
+                            <i class="bi bi-person-fill"></i>
+
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <strong>{{ activity.user.username }}</strong>
+                        
+                        <span class="badge bg-primary">
+    {{ activity.action_type }}
+</span>
+<br>  
+
+                        <br>
+
+                        {{ activity.action_detail }}
+
+                        <br>
+
+                        <small class="text-muted">
+
+                            {{ activity.created_at|date:"d M Y H:i" }}
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <div class="text-center text-muted py-4">
+
+                    No recent activity.
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Courses -->
+
+    <div class="row mt-4">
+
+        <div class="col-12">
+
+            <div class="dashboard-panel">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h4 class="fw-bold mb-0">
+
+                        Recent Courses
+
+                    </h4>
+
+                    <span class="badge bg-primary">
+
+                        Latest
+
+                    </span>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th>Course</th>
+                                <th>Instructor</th>
+                                <th>Created</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for course in recent_courses %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong>
+
+                                        {{ course.title }}
+
+                                    </strong>
+
+                                </td>
+
+                                <td>
+
+                                    {{ course.instructor.username }}
+
+                                </td>
+
+                                <td>
+
+                                    {{ course.created_at|date:"d M Y" }}
+
+                                </td>
+
+                                <td>
+
+                                    <span class="badge bg-success">
+
+                                        Active
+
+                                    </span>
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="4" class="text-center">
+
+                                    No Courses Available
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>
 
-<div class="row">
+{% endblock %}
 
-    <div class="col-md-4 mb-4">
-        <div class="card bg-warning text-white">
-            <div class="card-body">
-                <h5>Total Lessons</h5>
-                <h2>{{ total_lessons }}</h2>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-4 mb-4">
-        <div class="card bg-secondary text-white">
-            <div class="card-body">
-                <h5>Total Enrollments</h5>
-                <h2>{{ total_enrollments }}</h2>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-md-4 mb-4">
-        <div class="card bg-danger text-white">
-            <div class="card-body">
-                <h5>Total Progress</h5>
-                <h2>{{ total_progress }}</h2>
-            </div>
-        </div>
-    </div>
+{% block extra_js %}
 
-</div>
+<script>
 
-<hr>
+const ctx = document.getElementById('revenueChart');
 
-<h3 class="mb-3">Recent Courses</h3>
+if (ctx) {
 
-<table class="table table-bordered">
+    new Chart(ctx, {
 
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Course</th>
-            <th>Instructor</th>
-            <th>Status</th>
-        </tr>
-    </thead>
+        type: 'line',
 
-    <tbody>
+        data: {
 
-    {% for course in recent_courses %}
+            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
 
-        <tr>
-            <td>{{ course.id }}</td>
-            <td>{{ course.title }}</td>
-            <td>{{ course.instructor.full_name }}</td>
-            <td>{{ course.status }}</td>
-        </tr>
+            datasets: [{
 
-    {% empty %}
+                label: 'Monthly Revenue',
 
-        <tr>
-            <td colspan="4" class="text-center">
-                No courses available.
-            </td>
-        </tr>
+                data: JSON.parse('{{ revenue_by_month|escapejs }}'),
 
-    {% endfor %}
+                fill: true,
 
-    </tbody>
+                tension: 0.4,
 
-</table>
+                borderWidth: 3,
+
+                pointRadius: 5,
+
+                borderColor: '#2196f3',
+
+                backgroundColor: 'rgba(33,150,243,0.25)'
+
+            }]
+
+        },
+
+        options: {
+
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: true
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+document.querySelectorAll(".course-progress").forEach(function(bar) {
+
+    const progress = bar.dataset.progress;
+
+    bar.style.width = progress + "%";
+
+});
+
+</script>
 
 {% endblock %}

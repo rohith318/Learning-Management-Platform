@@ -4,6 +4,7 @@ from accounts.models import User
 from courses.models import Course, Enrollment
 
 from fastapi_app.schemas import EnrollmentCreate
+from dashboard.models import ActivityLog
 
 router = APIRouter(
     prefix="/enrollments",
@@ -40,9 +41,19 @@ def enroll_course(data: EnrollmentCreate):
             detail="Already enrolled"
         )
 
+    # Create enrollment only ONCE
     enrollment = Enrollment.objects.create(
         user=user,
         course=course
+    )
+
+    # Create activity log
+
+    ActivityLog.objects.create(
+        
+        user=user,
+        action_type="ENROLLMENT",
+        action_detail=f"Enrolled in {course.title}"
     )
 
     return {

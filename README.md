@@ -1,13 +1,16 @@
-# Subscription-Based Video Learning Platform
+# Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard & Notification System
 
 ## Project Overview
 
-This project is a Subscription-Based Video Learning Platform developed using **Django** and **FastAPI**.
+The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform allows students to enroll in courses, watch learning videos, purchase subscription plans, track learning progress, manage payments, and download certificates.
 
-- Django is used for the Admin Panel.
-- FastAPI is used for the User APIs.
-- Both applications share the same SQLite database.
-- JWT Authentication is used for secure API access.
+In addition to the core LMS features, the platform includes an **Analytics Dashboard**, **Activity Logging**, and **Notification System** for monitoring platform performance and improving user engagement.
+
+This project combines three major modules:
+
+- Learning Management Platform (LMS)
+- Subscription-Based Video Learning Platform
+- Analytics Dashboard & Notification System
 
 ---
 
@@ -22,84 +25,155 @@ This project is a Subscription-Based Video Learning Platform developed using **D
 - HTML5
 - CSS3
 - JavaScript
+- Chart.js
 - ReportLab
 - Uvicorn
 
 ---
 
-# Features
+# Project Modules
 
-## Django Admin Panel
+## 1. Learning Management Platform (LMS)
+
+The LMS module allows administrators and students to manage online learning.
+
+### Features
+
+- User Registration
+- User Login
+- Role-Based Authentication
+- Student Dashboard
+- Instructor Dashboard
+- Course Management
+- Lesson Management
+- Enrollment Management
+- Progress Tracking
+- Search Courses
+- My Courses
+- Video Learning
+- Mark Lesson Completed
+- Next Lesson Navigation
+- User Profile
+
+---
+
+## 2. Subscription-Based Video Learning Platform
+
+Students can purchase subscription plans to access premium learning content.
+
+### Features
+
+- Subscription Plans
+- Premium Courses
+- Purchase Subscription
+- Payment Management
+- Payment History
+- Invoice PDF Generation
+- Certificate Generation
+- Download Certificate
+- Download Invoice
+
+---
+
+## 3. Analytics Dashboard & Notification System
+
+This module provides analytics, activity tracking, and notifications.
+
+### Analytics Dashboard
+
+- Total Users
+- Total Students
+- Total Instructors
+- Total Courses
+- Total Lessons
+- Total Enrollments
+- Monthly Revenue
+- Popular Courses
+- Dashboard Statistics Cards
+- Revenue Analytics
+- Course Analytics
+
+### Notification System
+
+- In-App Notifications
+- Email Notifications
+- Login Notifications
+- Notification Center
+- Mark Notification as Read
+
+### Activity Logging
+
+- User Login Activity
+- Course Enrollment Activity
+- Progress Update Activity
+- Activity History
+
+---
+
+# Django Admin Features
 
 - Admin Login
 - Dashboard
 - User Management
+- Instructor Management
 - Course Management
 - Lesson Management
-- Subscription Plan Management
 - Enrollment Management
 - Progress Management
+- Subscription Management
 - Payment Management
+- Analytics Dashboard
+- Notification Management
+- Activity Log Management
 - Certificate Generation
-- Invoice PDF Generation
+- Invoice Generation
 
 ---
 
-## FastAPI APIs
+# FastAPI User APIs
 
-### User APIs
+## User APIs
 
 - Register User
 - Login User
 - Get Current User
 
-### Course APIs
+## Course APIs
 
 - Get All Courses
 - Get Course By ID
-- Get Subscription Plans
 - Get Premium Courses
+- Get Subscription Plans
 
-### Enrollment APIs
+## Enrollment APIs
 
 - Enroll Student
 
-### Progress APIs
+## Progress APIs
 
-- Update Course Progress
-- Get User Progress
+- Update Progress
+- Get Progress
 
-### Subscription APIs
+## Subscription APIs
 
 - Purchase Subscription
 
-### Payment APIs
+## Payment APIs
 
 - Payment History
 
----
+## Analytics APIs
 
-# User Panel Features
+- Analytics Overview
 
-- User Registration
-- User Login
-- Student Dashboard
-- My Courses
-- Course Details
-- Embedded YouTube Video Learning
-- Mark Lesson as Completed
-- Next Lesson Navigation
-- Course Progress Tracking
-- Buy Subscription
-- Payment Success Page
-- Payment History
-- Download Certificate
-- Download Invoice
-- User Profile
+## Notification APIs
+
+- Get Notifications
+- Mark Notification as Read
 
 ---
 
-# Installation
+# Installation Guide
 
 ## Clone Repository
 
@@ -139,11 +213,15 @@ pip install -r requirements.txt
 
 ---
 
-## Run Django
+# Run Django
+
+Apply migrations
 
 ```bash
 python manage.py migrate
 ```
+
+Run server
 
 ```bash
 python manage.py runserver
@@ -152,12 +230,12 @@ python manage.py runserver
 Django URL
 
 ```
-http://127.0.0.1:8000
+http://127.0.0.1:8000/
 ```
 
 ---
 
-## Run FastAPI
+# Run FastAPI
 
 ```bash
 uvicorn fastapi_app.main:app --reload --port 8001
@@ -166,10 +244,10 @@ uvicorn fastapi_app.main:app --reload --port 8001
 FastAPI URL
 
 ```
-http://127.0.0.1:8001
+http://127.0.0.1:8001/
 ```
 
-Swagger Documentation
+Swagger API
 
 ```
 http://127.0.0.1:8001/docs
@@ -177,53 +255,76 @@ http://127.0.0.1:8001/docs
 
 ---
 
-# FastAPI Endpoints
+# API Endpoints
 
 ## Users
 
-POST /users/register
-
-POST /users/login
-
-GET /users/me
+| Method | Endpoint |
+|---------|----------|
+| POST | /users/register |
+| POST | /users/login |
+| GET | /users/me |
 
 ---
 
 ## Courses
 
-GET /courses/
-
-GET /courses/{course_id}
-
-GET /courses/plans/
-
-GET /courses/premium/
+| Method | Endpoint |
+|---------|----------|
+| GET | /courses/ |
+| GET | /courses/{course_id} |
+| GET | /courses/plans/ |
+| GET | /courses/premium/ |
 
 ---
 
 ## Enrollment
 
-POST /enrollment/
+| Method | Endpoint |
+|---------|----------|
+| POST | /enrollments/ |
 
 ---
 
 ## Progress
 
-POST /progress/
-
-GET /progress/{user_id}
+| Method | Endpoint |
+|---------|----------|
+| POST | /progress/ |
+| GET | /progress/{user_id} |
 
 ---
 
 ## Subscription
 
-POST /subscribe/
+| Method | Endpoint |
+|---------|----------|
+| POST | /subscribe/ |
 
 ---
 
 ## Payments
 
-GET /payments/
+| Method | Endpoint |
+|---------|----------|
+| GET | /payments/ |
+
+---
+
+## Notifications
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /notifications/ |
+| POST | /notifications/read/{notification_id}/ |
+
+---
+
+## Analytics
+
+| Method | Endpoint |
+|---------|----------|
+| GET | /analytics/overview/ |
 
 ---
 
@@ -233,33 +334,44 @@ GET /payments/
 Learning_Management_Platform/
 
 │── accounts/
-
 │── courses/
-
 │── dashboard/
-
 │── fastapi_app/
-
 │── templates/
-
 │── static/
-
+│── media/
 │── manage.py
-
 │── requirements.txt
-
 │── README.md
 ```
 
 ---
 
-# Project Deliverables
+# Screenshots
+
+The project includes screenshots of:
+
+- Login Page
+- Django Admin Dashboard
+- Analytics Dashboard
+- User Dashboard
+- Notification Center
+- Course Management
+- Payment History
+- Subscription Page
+- Postman API Testing
+
+---
+
+# Deliverables
 
 - Source Code
 - GitHub Repository
 - README Documentation
 - Postman Collection
-- Django Admin Panel
+- Analytics Dashboard
+- Notification System
+- Activity Logging
 - FastAPI APIs
 - JWT Authentication
 - Certificate Generation
@@ -267,15 +379,36 @@ Learning_Management_Platform/
 
 ---
 
+# Learning Outcomes
+
+This project demonstrates practical implementation of:
+
+- Django Web Development
+- FastAPI REST APIs
+- JWT Authentication
+- Role-Based Access Control
+- Analytics Dashboard Development
+- Notification Management
+- Activity Logging
+- Database Design
+- PDF Generation
+- API Testing using Postman
+- Git & GitHub Version Control
+
+---
+
 # Future Enhancements
 
 - Stripe Payment Gateway
 - Razorpay Integration
-- Email Notifications
+- Redis
+- Celery Background Tasks
+- Real-Time Notifications
+- Email Scheduling
+- Quiz & Assessment
 - Live Classes
-- Quiz & Assessment Module
 - Discussion Forum
-- Video Upload to Cloud Storage
+- Cloud Video Storage
 
 ---
 
@@ -283,6 +416,6 @@ Learning_Management_Platform/
 
 **Rohith Raj**
 
-Subscription-Based Video Learning Platform
+**Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard & Notification System**
 
-Developed using Django + FastAPI
+Developed using **Django + FastAPI**

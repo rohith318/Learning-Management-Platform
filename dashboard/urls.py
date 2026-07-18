@@ -48,4 +48,34 @@ urlpatterns = [
         name="user_logout",
     ),
 
+    path(
+    "notifications/",
+    views.notification_list,
+    name="notification_list",
+),
+
+path(
+    "notifications/read/<int:notification_id>/",
+    views.mark_notification_read,
+    name="mark_notification_read",
+),
+
+path(
+    "analytics/overview/",
+    views.analytics_overview,
+    name="analytics_overview",
+),
+
+path(
+    "analytics/monthly/",
+    views.analytics_monthly,
+    name="analytics_monthly",
+),
+
+path(
+    "reports/",
+    views.report,
+    name="report",
+),
+
 ]
