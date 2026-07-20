@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Chat Analytics</h2>
+
+{{ private_count|json_script:"private-count" }}
+{{ group_count|json_script:"group-count" }}
+
+<canvas id="chatChart"></canvas>
+
+<script>
+const privateCount = JSON.parse(
+    document.getElementById("private-count").textContent
+);
+
+const groupCount = JSON.parse(
+    document.getElementById("group-count").textContent
+);
+
+const ctx = document.getElementById("chatChart");
+
+new Chart(ctx, {
+    type: "bar",
+    data: {
+        labels: ["Private Messages", "Group Messages"],
+        datasets: [{
+            label: "Messages",
+            data: [privateCount, groupCount]
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

@@ -1,4 +1,13 @@
-from sqlalchemy import Column, Integer, String, Float, Date, DateTime, ForeignKey
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    Date,
+    DateTime,
+    ForeignKey,
+)
+
 from fastapi_app.database import Base
 
 

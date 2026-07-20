@@ -86,6 +86,22 @@
     <span>Logout</span>
 </a>
 
+
+<li>
+    <a href="{% url 'chat_page' %}"
+       class="sidebar-link {% if request.resolver_match.url_name == 'chat_page' %}active{% endif %}">
+        <i class="bi bi-chat-dots-fill"></i>
+        <span>Chat</span>
+    </a>
+</li>
+
+<li>
+    <a href="{% url 'user_logout' %}" class="sidebar-link">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Logout</span>
+    </a>
+</li>
+
             </li>
 
             <li>

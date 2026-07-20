@@ -1,16 +1,23 @@
-# Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard & Notification System
+# Learning Management Platform (LMS)
 
-## Project Overview
+## Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard, Notification System & Real-Time Collaboration Module
 
-The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform allows students to enroll in courses, watch learning videos, purchase subscription plans, track learning progress, manage payments, and download certificates.
+---
 
-In addition to the core LMS features, the platform includes an **Analytics Dashboard**, **Activity Logging**, and **Notification System** for monitoring platform performance and improving user engagement.
+# Project Overview
 
-This project combines three major modules:
+The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform enables administrators, instructors, and students to manage online learning efficiently.
+
+Students can register, enroll in courses, watch video lessons, purchase subscription plans, track their learning progress, receive notifications, communicate through real-time chat, and download certificates.
+
+Administrators can manage users, instructors, courses, lessons, enrollments, subscriptions, payments, notifications, reports, and monitor platform performance through an interactive analytics dashboard.
+
+The project combines four major modules:
 
 - Learning Management Platform (LMS)
 - Subscription-Based Video Learning Platform
 - Analytics Dashboard & Notification System
+- Real-Time Collaboration & Messaging Module
 
 ---
 
@@ -20,6 +27,7 @@ This project combines three major modules:
 - Django
 - FastAPI
 - SQLite
+- WebSockets
 - JWT Authentication
 - Bootstrap 5
 - HTML5
@@ -35,15 +43,15 @@ This project combines three major modules:
 
 ## 1. Learning Management Platform (LMS)
 
-The LMS module allows administrators and students to manage online learning.
-
 ### Features
 
 - User Registration
 - User Login
 - Role-Based Authentication
-- Student Dashboard
+- Admin Dashboard
 - Instructor Dashboard
+- Student Dashboard
+- User Profile Management
 - Course Management
 - Lesson Management
 - Enrollment Management
@@ -51,9 +59,8 @@ The LMS module allows administrators and students to manage online learning.
 - Search Courses
 - My Courses
 - Video Learning
-- Mark Lesson Completed
+- Lesson Completion Tracking
 - Next Lesson Navigation
-- User Profile
 
 ---
 
@@ -77,9 +84,9 @@ Students can purchase subscription plans to access premium learning content.
 
 ## 3. Analytics Dashboard & Notification System
 
-This module provides analytics, activity tracking, and notifications.
+The Analytics Dashboard provides complete insights into LMS activities.
 
-### Analytics Dashboard
+### Dashboard Analytics
 
 - Total Users
 - Total Students
@@ -87,18 +94,28 @@ This module provides analytics, activity tracking, and notifications.
 - Total Courses
 - Total Lessons
 - Total Enrollments
+- Progress Statistics
 - Monthly Revenue
+- Revenue Analytics Chart
 - Popular Courses
-- Dashboard Statistics Cards
-- Revenue Analytics
-- Course Analytics
+- Recent Courses
+- Recent Activity
+
+### Chat Analytics
+
+- Total Chat Messages
+- Private Messages
+- Group Messages
+- Today's Messages
+- Daily Chat Activity Chart
 
 ### Notification System
 
 - In-App Notifications
-- Email Notifications
+- Notification Bell
+- Notification Count
 - Login Notifications
-- Notification Center
+- Chat Notifications
 - Mark Notification as Read
 
 ### Activity Logging
@@ -107,6 +124,25 @@ This module provides analytics, activity tracking, and notifications.
 - Course Enrollment Activity
 - Progress Update Activity
 - Activity History
+
+---
+
+# 4. Real-Time Collaboration & Messaging Module
+
+The Real-Time Collaboration & Messaging Module enables instant communication between administrators, instructors, and students using FastAPI WebSockets.
+
+### Features
+
+- Real-Time Private Chat
+- Real-Time Group Chat
+- FastAPI WebSocket Integration
+- Chat History
+- Online / Offline User Status
+- Live User List
+- Instant Notifications
+- Notification Bell Integration
+- Chat Analytics Dashboard
+- Django Admin Chat Management
 
 ---
 
@@ -122,15 +158,16 @@ This module provides analytics, activity tracking, and notifications.
 - Progress Management
 - Subscription Management
 - Payment Management
-- Analytics Dashboard
+- Chat Message Management
 - Notification Management
 - Activity Log Management
+- Analytics Dashboard
 - Certificate Generation
 - Invoice Generation
 
 ---
 
-# FastAPI User APIs
+# FastAPI APIs
 
 ## User APIs
 
@@ -162,14 +199,20 @@ This module provides analytics, activity tracking, and notifications.
 
 - Payment History
 
-## Analytics APIs
-
-- Analytics Overview
-
 ## Notification APIs
 
 - Get Notifications
 - Mark Notification as Read
+
+## Analytics APIs
+
+- Analytics Overview
+
+## Chat APIs
+
+- Get Chat Users
+- Get Chat History
+- WebSocket Chat Connection
 
 ---
 
@@ -203,6 +246,12 @@ Windows
 venv\Scripts\activate
 ```
 
+Linux / macOS
+
+```bash
+source venv/bin/activate
+```
+
 ---
 
 ## Install Dependencies
@@ -213,15 +262,15 @@ pip install -r requirements.txt
 
 ---
 
-# Run Django
+# Run Django Server
 
-Apply migrations
+Apply Migrations
 
 ```bash
 python manage.py migrate
 ```
 
-Run server
+Run Django Server
 
 ```bash
 python manage.py runserver
@@ -235,7 +284,7 @@ http://127.0.0.1:8000/
 
 ---
 
-# Run FastAPI
+# Run FastAPI Server
 
 ```bash
 uvicorn fastapi_app.main:app --reload --port 8001
@@ -247,7 +296,7 @@ FastAPI URL
 http://127.0.0.1:8001/
 ```
 
-Swagger API
+Swagger Documentation
 
 ```
 http://127.0.0.1:8001/docs
@@ -260,7 +309,7 @@ http://127.0.0.1:8001/docs
 ## Users
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | POST | /users/register |
 | POST | /users/login |
 | GET | /users/me |
@@ -270,7 +319,7 @@ http://127.0.0.1:8001/docs
 ## Courses
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | GET | /courses/ |
 | GET | /courses/{course_id} |
 | GET | /courses/plans/ |
@@ -281,7 +330,7 @@ http://127.0.0.1:8001/docs
 ## Enrollment
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | POST | /enrollments/ |
 
 ---
@@ -289,7 +338,7 @@ http://127.0.0.1:8001/docs
 ## Progress
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | POST | /progress/ |
 | GET | /progress/{user_id} |
 
@@ -298,7 +347,7 @@ http://127.0.0.1:8001/docs
 ## Subscription
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | POST | /subscribe/ |
 
 ---
@@ -306,7 +355,7 @@ http://127.0.0.1:8001/docs
 ## Payments
 
 | Method | Endpoint |
-|---------|----------|
+|----------|---------------------------|
 | GET | /payments/ |
 
 ---
@@ -314,7 +363,7 @@ http://127.0.0.1:8001/docs
 ## Notifications
 
 | Method | Endpoint |
-|---------|----------|
+|----------|------------------------------------------|
 | GET | /notifications/ |
 | POST | /notifications/read/{notification_id}/ |
 
@@ -323,8 +372,18 @@ http://127.0.0.1:8001/docs
 ## Analytics
 
 | Method | Endpoint |
-|---------|----------|
+|----------|-----------------------------|
 | GET | /analytics/overview/ |
+
+---
+
+## Chat APIs
+
+| Method | Endpoint |
+|----------|-------------------------------------------|
+| GET | /chat/users |
+| GET | /chat/history/{sender_id}/{receiver_id} |
+| WebSocket | /ws/chat/{user_id} |
 
 ---
 
@@ -334,11 +393,20 @@ http://127.0.0.1:8001/docs
 Learning_Management_Platform/
 
 │── accounts/
+│── chat/
 │── courses/
 │── dashboard/
 │── fastapi_app/
+│   ├── chat/
+│   ├── users/
+│   ├── notifications/
+│   ├── courses/
+│
 │── templates/
 │── static/
+│   ├── css/
+│   ├── js/
+│
 │── media/
 │── manage.py
 │── requirements.txt
@@ -352,13 +420,18 @@ Learning_Management_Platform/
 The project includes screenshots of:
 
 - Login Page
-- Django Admin Dashboard
+- Admin Dashboard
+- Student Dashboard
 - Analytics Dashboard
-- User Dashboard
-- Notification Center
+- Revenue Analytics
+- Chat Analytics Dashboard
+- Private Chat
+- Group Chat
+- Notification Bell
 - Course Management
-- Payment History
 - Subscription Page
+- Payment History
+- Django Admin
 - Postman API Testing
 
 ---
@@ -370,6 +443,9 @@ The project includes screenshots of:
 - README Documentation
 - Postman Collection
 - Analytics Dashboard
+- Chat Analytics Dashboard
+- Real-Time Chat Module
+- WebSocket Integration
 - Notification System
 - Activity Logging
 - FastAPI APIs
@@ -385,9 +461,12 @@ This project demonstrates practical implementation of:
 
 - Django Web Development
 - FastAPI REST APIs
+- WebSocket Communication
+- Real-Time Messaging
 - JWT Authentication
 - Role-Based Access Control
 - Analytics Dashboard Development
+- Chat Analytics
 - Notification Management
 - Activity Logging
 - Database Design
@@ -403,8 +482,12 @@ This project demonstrates practical implementation of:
 - Razorpay Integration
 - Redis
 - Celery Background Tasks
-- Real-Time Notifications
-- Email Scheduling
+- Typing Indicator
+- Read Receipts
+- File Sharing
+- Voice Messages
+- Video Calling
+- Push Notifications
 - Quiz & Assessment
 - Live Classes
 - Discussion Forum
@@ -416,6 +499,6 @@ This project demonstrates practical implementation of:
 
 **Rohith Raj**
 
-**Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard & Notification System**
+### Learning Management Platform (LMS)
 
-Developed using **Django + FastAPI**
+Developed using **Django + FastAPI + WebSockets**

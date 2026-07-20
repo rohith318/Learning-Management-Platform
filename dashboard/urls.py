@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from . import user_views
+from .views import chat_analytics, chat_page
 
 urlpatterns = [
 
@@ -76,6 +77,18 @@ path(
     "reports/",
     views.report,
     name="report",
+),
+
+path(
+    "chat-analytics/",
+    chat_analytics,
+    name="chat_analytics",
+),
+
+path(
+    "chat/",
+    chat_page,
+    name="chat_page",
 ),
 
 ]

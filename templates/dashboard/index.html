@@ -306,6 +306,62 @@
 
     </div>
 
+    <!-- Chat Analytics -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-12">
+
+        <div class="dashboard-panel">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h4 class="fw-bold mb-0">
+                    Chat Analytics
+                </h4>
+
+                <span class="badge bg-info">
+                    Live
+                </span>
+
+            </div>
+
+            <div class="row text-center mb-4">
+
+                <div class="col-md-3">
+                    <h5>Total Messages</h5>
+                    <h2>{{ total_chat_messages }}</h2>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Private Messages</h5>
+                    <h2>{{ private_messages }}</h2>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Group Messages</h5>
+                    <h2>{{ group_messages }}</h2>
+                </div>
+
+                <div class="col-md-3">
+                    <h5>Today's Messages</h5>
+                    <h2>{{ today_messages }}</h2>
+                </div>
+
+            </div>
+
+            <div class="chart-container" style="height:350px;">
+
+    <canvas id="chatChart"></canvas>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
         <!-- Recent Activity -->
 
     <div class="row mt-4">
@@ -508,30 +564,66 @@ const ctx = document.getElementById('revenueChart');
 if (ctx) {
 
     new Chart(ctx, {
-
         type: 'line',
+        data: {
+            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            datasets: [{
+                label: 'Monthly Revenue',
+                data: JSON.parse('{{ revenue_by_month|escapejs }}'),
+                fill: true,
+                tension: 0.4,
+                borderWidth: 3,
+                pointRadius: 5,
+                borderColor: '#2196f3',
+                backgroundColor: 'rgba(33,150,243,0.25)'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
+
+document.querySelectorAll(".course-progress").forEach(function(bar) {
+    const progress = bar.dataset.progress;
+    bar.style.width = progress + "%";
+});
+
+// Chat Analytics Chart
+
+const chatCtx = document.getElementById("chatChart");
+
+if (chatCtx) {
+
+    new Chart(chatCtx, {
+
+        type: "bar",
 
         data: {
 
-            labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+            labels: JSON.parse('{{ chat_labels|escapejs }}'),
 
             datasets: [{
 
-                label: 'Monthly Revenue',
+                label: "Daily Chat Activity",
 
-                data: JSON.parse('{{ revenue_by_month|escapejs }}'),
+                data: JSON.parse('{{ chat_counts|escapejs }}'),
 
-                fill: true,
-
-                tension: 0.4,
-
-                borderWidth: 3,
-
-                pointRadius: 5,
-
-                borderColor: '#2196f3',
-
-                backgroundColor: 'rgba(33,150,243,0.25)'
+                backgroundColor: "#0d6efd",
+borderColor: "#0d6efd",
+borderWidth: 1
 
             }]
 
@@ -539,20 +631,9 @@ if (ctx) {
 
         options: {
 
-
             responsive: true,
 
             maintainAspectRatio: false,
-
-            plugins: {
-
-                legend: {
-
-                    display: true
-
-                }
-
-            },
 
             scales: {
 
@@ -569,14 +650,6 @@ if (ctx) {
     });
 
 }
-
-document.querySelectorAll(".course-progress").forEach(function(bar) {
-
-    const progress = bar.dataset.progress;
-
-    bar.style.width = progress + "%";
-
-});
 
 </script>
 

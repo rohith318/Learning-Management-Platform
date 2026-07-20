@@ -19,6 +19,10 @@ from django.db.models import Count, Sum
 from django.db.models.functions import ExtractMonth
 import json
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
+from chat.models import ChatMessage
+from django.db.models.functions import TruncDate
+
 
 @login_required
 def dashboard(request):
@@ -79,6 +83,40 @@ def dashboard(request):
         ).count()
     )
 
+
+    # ---------------- Chat Analytics ----------------
+
+    total_chat_messages = ChatMessage.objects.count()
+
+    private_messages = ChatMessage.objects.filter(
+        is_group=False
+    ).count()
+
+    group_messages = ChatMessage.objects.filter(
+        is_group=True
+    ).count()
+
+    today_messages = ChatMessage.objects.filter(
+        created_at__date=today
+    ).count()
+
+    # Chat Messages Per Day (Last 7 Days)
+
+    chat_data = (
+        ChatMessage.objects
+        .annotate(day=TruncDate("created_at"))
+        .values("day")
+        .annotate(total=Count("id"))
+        .order_by("day")
+    )
+
+    chat_labels = []
+    chat_counts = []
+
+    for item in chat_data:
+        chat_labels.append(item["day"].strftime("%d %b"))
+        chat_counts.append(item["total"])
+
     context = {
         "total_users": User.objects.count(),
         "total_students": User.objects.filter(role="student").count(),
@@ -95,6 +133,13 @@ def dashboard(request):
         "latest_notifications": latest_notifications,
         "notifications_count": notifications_count,
         "recent_courses": Course.objects.order_by("-created_at")[:5],
+
+        "total_chat_messages": total_chat_messages,
+        "private_messages": private_messages,
+        "group_messages": group_messages,
+        "today_messages": today_messages,
+        "chat_labels": json.dumps(chat_labels),
+        "chat_counts": json.dumps(chat_counts),
     }
 
     return render(
@@ -205,4 +250,34 @@ def report(request):
         request,
         "dashboard/report.html",
         context,
+    )
+
+from django.shortcuts import render
+
+
+def chat_analytics(request):
+
+    private_count = ChatMessage.objects.filter(
+        is_group=False
+    ).count()
+
+    group_count = ChatMessage.objects.filter(
+        is_group=True
+    ).count()
+
+    context = {
+        "private_count": private_count,
+        "group_count": group_count,
+    }
+
+    return render(
+        request,
+        "dashboard/chat_analytics.html",
+        context,
+    )
+@login_required
+def chat_page(request):
+    return render(
+        request,
+        "chat/chat.html",
     )
