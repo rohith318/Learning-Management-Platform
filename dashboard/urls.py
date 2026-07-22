@@ -2,6 +2,9 @@ from django.urls import path
 from . import views
 from . import user_views
 from .views import chat_analytics, chat_page
+from . import instructor_views
+from django.http import HttpResponse
+from .views import reports_view
 
 urlpatterns = [
 
@@ -73,11 +76,6 @@ path(
     name="analytics_monthly",
 ),
 
-path(
-    "reports/",
-    views.report,
-    name="report",
-),
 
 path(
     "chat-analytics/",
@@ -91,4 +89,83 @@ path(
     name="chat_page",
 ),
 
+path(
+    "instructor/dashboard/",
+    instructor_views.instructor_dashboard,
+    name="instructor_dashboard",
+),
+
+path(
+    "instructor/attendance/",
+    instructor_views.attendance_page,
+    name="instructor_attendance",
+),
+
+path(
+    "instructor/assignments/",
+    instructor_views.assignments_page,
+    name="instructor_assignments",
+),
+
+path(
+    "instructor/submissions/",
+    instructor_views.submissions_page,
+    name="instructor_submissions",
+),
+
+path(
+    "instructor/notifications/",
+    instructor_views.notifications_page,
+    name="instructor_notifications",
+),
+
+path(
+    "instructor/my-courses/",
+    instructor_views.instructor_courses,
+    name="instructor_courses",
+),
+
+path(
+    "instructor/assignments/create/",
+    instructor_views.create_assignment,
+    name="create_assignment",
+),
+
+
+
+path(
+    "instructor/login/",
+    instructor_views.instructor_login,
+    name="instructor_login",
+),
+
+path(
+    "user/assignments/",
+    user_views.user_assignments,
+    name="user_assignments",
+),
+
+path(
+    "user/assignments/submit/<int:assignment_id>/",
+    user_views.submit_assignment,
+    name="submit_assignment",
+),
+
+path(
+    "instructor/grade/<int:submission_id>/",
+    instructor_views.grade_submission,
+    name="grade_submission",
+),
+
+path(
+    "instructor/reports/",
+    reports_view,
+    name="reports",
+),
+
+
+
 ]
+
+
+

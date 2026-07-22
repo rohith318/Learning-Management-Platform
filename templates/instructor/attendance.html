@@ -1,0 +1,192 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}Attendance{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Mark Attendance</h2>
+
+<form method="get" class="row mb-4">
+
+    <div class="col-md-4">
+
+        <select
+            name="course"
+            class="form-select"
+            onchange="this.form.submit()">
+
+            <option value="">Select Course</option>
+
+            {% for course in courses %}
+
+            <option
+                value="{{ course.id }}"
+                {% if selected_course == course.id|stringformat:"s" %}
+                selected
+                {% endif %}>
+
+                {{ course.title }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+</form>
+
+{% if students %}
+
+<form id="attendanceForm">
+
+<table class="table table-bordered">
+
+<thead>
+
+<tr>
+
+<th>Student</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for student in students %}
+
+<tr>
+
+    <td>
+        {{ student.user.full_name }}
+
+        <input
+            type="hidden"
+            class="student-id"
+            value="{{ student.user.id }}">
+    </td>
+
+    <td>
+
+        <select class="form-select attendance-status">
+
+            <option value="Present">Present</option>
+
+            <option value="Absent">Absent</option>
+
+        </select>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+<button
+type="button"
+class="btn btn-primary"
+onclick="submitAttendance()">
+
+Mark Attendance
+
+</button>
+
+</form>
+
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+async function submitAttendance() {
+
+    const courseId = document.querySelector("select[name='course']").value;
+
+    if (!courseId) {
+        alert("Please select a course.");
+        return;
+    }
+
+    const rows = document.querySelectorAll("tbody tr");
+
+    let records = [];
+
+    rows.forEach(row => {
+
+        records.push({
+
+            student_id: parseInt(
+                row.querySelector(".student-id").value
+            ),
+
+            status: row.querySelector(".attendance-status").value
+
+        });
+
+    });
+
+    const payload = {
+
+        course_id: parseInt(courseId),
+
+        date: new Date().toISOString().split("T")[0],
+
+        records: records
+
+    };
+
+    console.log("Sending Payload:", payload);
+
+    try {
+
+        const response = await fetch(
+            "http://127.0.0.1:8001/attendance/mark",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(payload)
+            }
+        );
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if (response.ok) {
+
+            alert(result.message);
+
+        } else {
+
+            alert(result.detail || "Attendance could not be saved.");
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to connect to FastAPI server.");
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

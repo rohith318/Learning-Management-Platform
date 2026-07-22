@@ -1,0 +1,118 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}Assignment Submissions{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2>Assignment Submissions</h2>
+
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Student ID</th>
+                        <th>Assignment ID</th>
+                        <th>File</th>
+                        <th>Grade</th>
+                        <th>Remarks</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="submissionTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+
+<script>
+
+async function loadSubmissions(){
+
+    const response = await fetch(
+        "http://127.0.0.1:8001/assignments/submissions"
+    );
+
+    const submissions = await response.json();
+
+    let html = "";
+
+    submissions.forEach(sub=>{
+
+        html += `
+
+        <tr>
+
+            <td>${sub.id}</td>
+
+            <td>${sub.student_id}</td>
+
+            <td>${sub.assignment_id}</td>
+
+            <td>
+
+                <a href="http://127.0.0.1:8001/${sub.file_url}"
+                   target="_blank"
+                   class="btn btn-sm btn-primary">
+
+                    Download
+
+                </a>
+
+            </td>
+
+            <td>${sub.grade ?? "-"}</td>
+
+            <td>${sub.remarks ?? "-"}</td>
+
+            <td>
+
+                <a href="/instructor/grade/${sub.id}/"
+                   class="btn btn-success btn-sm">
+
+                    Grade
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+    document.getElementById("submissionTable").innerHTML = html;
+
+}
+
+loadSubmissions();
+
+</script>
+
+{% endblock %}

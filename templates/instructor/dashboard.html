@@ -1,0 +1,57 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}
+Instructor Dashboard
+{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">Instructor Dashboard</h2>
+
+<div class="row">
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-book fs-1 text-primary"></i>
+                <h5 class="mt-2">My Courses</h5>
+                <h3>{{ course_count }}
+
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-calendar-check fs-1 text-success"></i>
+                <h5 class="mt-2">Attendance</h5>
+                <h3>0</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-file-earmark-text fs-1 text-warning"></i>
+                <h5 class="mt-2">Assignments</h5>
+                <h3>{{ assignment_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card shadow-sm">
+            <div class="card-body text-center">
+                <i class="bi bi-bell fs-1 text-danger"></i>
+                <h5 class="mt-2">Notifications</h5>
+                <h3>{{ notification_count }}</h3>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

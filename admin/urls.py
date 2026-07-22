@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+from dashboard.views import logout_view
 from django.shortcuts import redirect
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
 
 from dashboard.user_views import (
     user_login,
@@ -48,10 +52,10 @@ urlpatterns = [
     ),
 
     path(
-        "logout/",
-        auth_views.LogoutView.as_view(),
-        name="logout",
-    ),
+    "logout/",
+    logout_view,
+    name="logout",
+),
 
 
     path(
@@ -167,8 +171,18 @@ path(
     name="generate_certificate",
 ),
 
+path(
+    "analytics/",
+    include("analytics_app.urls"),
+),
+
     path("", include("dashboard.urls")),
 
     path("courses/", include("courses.urls")),
     path("users/", include("accounts.urls")),
 ]
+
+urlpatterns += static(
+    settings.MEDIA_URL,
+    document_root=settings.MEDIA_ROOT
+)

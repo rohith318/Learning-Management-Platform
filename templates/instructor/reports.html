@@ -1,0 +1,138 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}
+Instructor Reports
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <div class="mb-4">
+        <h2 class="fw-bold">Reports Dashboard</h2>
+    </div>
+
+    <div class="row">
+
+        <!-- Total Students -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-primary text-white">
+                <div class="card-body text-center">
+                    <h5>Total Students</h5>
+                    <h1>{{ total_students }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Instructors -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-success text-white">
+                <div class="card-body text-center">
+                    <h5>Total Instructors</h5>
+                    <h1>{{ total_instructors }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Courses -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-info text-white">
+                <div class="card-body text-center">
+                    <h5>Total Courses</h5>
+                    <h1>{{ total_courses }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Courses -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-warning text-dark">
+                <div class="card-body text-center">
+                    <h5>Active Courses</h5>
+                    <h1>{{ active_courses }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inactive Courses -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-danger text-white">
+                <div class="card-body text-center">
+                    <h5>Inactive Courses</h5>
+                    <h1>{{ inactive_courses }}</h1>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Enrollments -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow border-0 bg-secondary text-white">
+                <div class="card-body text-center">
+                    <h5>Total Enrollments</h5>
+                    <h1>{{ total_enrollments }}</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card shadow mt-4">
+
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">LMS Summary</h5>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-striped mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Report</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Total Students</td>
+                        <td>{{ total_students }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Instructors</td>
+                        <td>{{ total_instructors }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Courses</td>
+                        <td>{{ total_courses }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Active Courses</td>
+                        <td>{{ active_courses }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Inactive Courses</td>
+                        <td>{{ inactive_courses }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Enrollments</td>
+                        <td>{{ total_enrollments }}</td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

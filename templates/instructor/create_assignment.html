@@ -1,0 +1,128 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}Create Assignment{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h4>Create Assignment</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">Course</label>
+
+                    <select
+                        class="form-select"
+                        name="course_id"
+                        required>
+
+                        {% for course in courses %}
+                        <option value="{{ course.id }}">
+                            {{ course.title }}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Assignment Title
+                    </label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Description
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="4"
+                        required></textarea>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Deadline
+                    </label>
+
+                    <input
+                        type="datetime-local"
+                        name="deadline"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Assignment File
+                    </label>
+
+                    <input
+                        type="file"
+                        name="file"
+                        class="form-control"
+                        required>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    Create Assignment
+
+                </button>
+
+                <a
+                    href="{% url 'instructor_assignments' %}"
+                    class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

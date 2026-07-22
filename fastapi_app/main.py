@@ -20,7 +20,13 @@ from fastapi_app.notifications import api as notification_api
 from fastapi_app.notifications.service import add_notification
 from fastapi_app.routers import chat_users
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi_app.routers import attendance
+from fastapi_app.database import Base, engine
+import fastapi_app.models
+from fastapi_app.routers import assignments
+from fastapi.middleware.cors import CORSMiddleware
 
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Learning Management Platform API",
@@ -50,7 +56,8 @@ app.include_router(chat_api.router)
 app.include_router(chat_status.router)
 app.include_router(notification_api.router)
 app.include_router(chat_users.router)
-
+app.include_router(attendance.router)
+app.include_router(assignments.router)
 
 @app.get("/")
 def root():

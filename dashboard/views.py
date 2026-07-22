@@ -22,6 +22,10 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from chat.models import ChatMessage
 from django.db.models.functions import TruncDate
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
+from courses.models import Course, Enrollment
 
 
 @login_required
@@ -281,3 +285,44 @@ def chat_page(request):
         request,
         "chat/chat.html",
     )
+
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
+def logout_view(request):
+
+    logout(request)
+
+    return redirect("instructor_login")
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from django.contrib.auth import get_user_model
+from courses.models import Course, Enrollment
+
+
+@login_required
+def reports_view(request):
+
+    if request.user.role != "instructor":
+        return HttpResponseForbidden("Access Denied")
+
+    User = get_user_model()
+
+    context = {
+        "total_students": User.objects.filter(role="student").count(),
+        "total_instructors": User.objects.filter(role="instructor").count(),
+        "total_courses": Course.objects.count(),
+        "active_courses": Course.objects.filter(status="active").count(),
+        "inactive_courses": Course.objects.filter(status="inactive").count(),
+        "total_enrollments": Enrollment.objects.count(),
+    }
+
+    return render(
+        request,
+        "instructor/reports.html",
+        context,
+    )
+
+
+

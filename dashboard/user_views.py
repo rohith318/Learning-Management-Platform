@@ -18,6 +18,10 @@ from dashboard.models import ActivityLog   # <-- change app name if needed
 from django.core.mail import send_mail
 from django.conf import settings
 from dashboard.models import Notification
+import requests
+import requests
+from django.contrib import messages
+from django.shortcuts import render, redirect
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -75,6 +79,17 @@ def user_login(request):
                 request,
                 "Login Successful!"
             )
+
+            role = user.role.lower()
+
+            if role == "admin":
+                return redirect("dashboard")
+
+            elif role == "instructor":
+                return redirect("instructor_dashboard")
+
+            elif role == "student":
+                return redirect("user_dashboard")
 
             return redirect("user_dashboard")
 
@@ -206,6 +221,13 @@ def my_courses(request):
         request,
         "user/courses.html",
         context,
+    )
+
+@login_required
+def user_assignments(request):
+    return render(
+        request,
+        "user/assignments.html"
     )
 
 @login_required
@@ -737,3 +759,58 @@ def generate_certificate(request, course_id):
         as_attachment=True,
         filename="Certificate.pdf"
     ) 
+
+@login_required
+def submit_assignment(request, assignment_id):
+
+    if request.method == "POST":
+
+        assignment_file = request.FILES.get("file")
+
+        if not assignment_file:
+            messages.error(request, "Please select a file.")
+            return redirect("submit_assignment", assignment_id=assignment_id)
+
+        url = "http://127.0.0.1:8001/assignments/submit"
+
+        files = {
+            "file": (
+                assignment_file.name,
+                assignment_file,
+                assignment_file.content_type,
+            )
+        }
+
+        data = {
+            "assignment_id": assignment_id,
+            "student_id": request.user.id,
+        }
+
+        response = requests.post(
+            url,
+            files=files,
+            data=data,
+        )
+
+        print("Status Code:", response.status_code)
+        print("Response:", response.text)
+
+        if response.status_code == 200:
+            messages.success(
+                request,
+                "Assignment submitted successfully."
+            )
+            return redirect("user_assignments")
+
+        messages.error(
+            request,
+            "Submission failed."
+        )
+
+    return render(
+        request,
+        "user/submit_assignment.html",
+        {
+            "assignment_id": assignment_id,
+        },
+    )

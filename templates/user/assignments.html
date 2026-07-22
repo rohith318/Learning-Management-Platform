@@ -1,0 +1,101 @@
+{% extends "user/user_base.html" %}
+
+{% block title %}
+Assignments
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3>Assignments</h3>
+    </div>
+
+    <div class="card shadow">
+
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Course</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Deadline</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="assignmentTable">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+async function loadAssignments() {
+
+    const response = await fetch(
+        "http://127.0.0.1:8001/assignments/"
+    );
+
+    const assignments = await response.json();
+
+    let html = "";
+
+    assignments.forEach(item => {
+
+        html += `
+        <tr>
+
+            <td>${item.id}</td>
+            <td>${item.course_id}</td>
+            <td>${item.title}</td>
+            <td>${item.description}</td>
+            <td>${item.deadline}</td>
+
+            <td>
+
+                <a
+                    href="/user/assignments/submit/${item.id}/"
+                    class="btn btn-success btn-sm">
+
+                    Submit
+
+                </a>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+    document.getElementById(
+        "assignmentTable"
+    ).innerHTML = html;
+
+}
+
+loadAssignments();
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "instructor/base.html" %}
+
+{% block title %}
+Grade Submission
+{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-success text-white">
+            <h4>Grade Assignment</h4>
+        </div>
+
+        <div class="card-body">
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-info">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Grade
+                    </label>
+
+                    <input
+                        type="text"
+                        name="grade"
+                        class="form-control"
+                        placeholder="Example: A+, A, B, 95"
+                        required>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Remarks
+                    </label>
+
+                    <textarea
+                        name="remarks"
+                        class="form-control"
+                        rows="4"
+                        placeholder="Enter remarks"
+                        required></textarea>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    Save Grade
+
+                </button>
+
+                <a
+                    href="{% url 'instructor_submissions' %}"
+                    class="btn btn-secondary">
+
+                    Back
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

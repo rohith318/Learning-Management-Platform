@@ -57,6 +57,13 @@
     <span>My Courses</span>
 </a>
 
+                  <a href="{% url 'user_assignments' %}" class="nav-link">
+        <i class="bi bi-file-earmark-text"></i>
+        Assignments
+    </a>
+
+
+
             </li>
 
             <li>
@@ -81,10 +88,6 @@
 
             <li>
 
-                <a href="{% url 'user_logout' %}" class="sidebar-link">
-    <i class="bi bi-box-arrow-right"></i>
-    <span>Logout</span>
-</a>
 
 
 <li>
@@ -124,5 +127,9 @@
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block extra_js %}
+{% endblock %}
+
 </body>
 </html>

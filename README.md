@@ -1,23 +1,24 @@
 # Learning Management Platform (LMS)
 
-## Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard, Notification System & Real-Time Collaboration Module
+## Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard, Notification System, Real-Time Collaboration & Advanced Backend Features
 
 ---
 
 # Project Overview
 
-The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform enables administrators, instructors, and students to manage online learning efficiently.
+The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform enables administrators, instructors, and students to efficiently manage online learning.
 
-Students can register, enroll in courses, watch video lessons, purchase subscription plans, track their learning progress, receive notifications, communicate through real-time chat, and download certificates.
+Students can register, enroll in courses, watch video lessons, purchase subscription plans, submit assignments, track attendance and learning progress, receive notifications, communicate through real-time chat, and download certificates.
 
-Administrators can manage users, instructors, courses, lessons, enrollments, subscriptions, payments, notifications, reports, and monitor platform performance through an interactive analytics dashboard.
+Administrators can manage users, instructors, courses, lessons, enrollments, subscriptions, payments, notifications, attendance, assignments, reports, and monitor platform performance through an interactive analytics dashboard.
 
-The project combines four major modules:
+The project combines the following modules:
 
 - Learning Management Platform (LMS)
 - Subscription-Based Video Learning Platform
 - Analytics Dashboard & Notification System
 - Real-Time Collaboration & Messaging Module
+- Advanced LMS Backend Features
 
 ---
 
@@ -26,6 +27,7 @@ The project combines four major modules:
 - Python 3
 - Django
 - FastAPI
+- SQLAlchemy
 - SQLite
 - WebSockets
 - JWT Authentication
@@ -101,21 +103,16 @@ The Analytics Dashboard provides complete insights into LMS activities.
 - Recent Courses
 - Recent Activity
 
-### Chat Analytics
-
-- Total Chat Messages
-- Private Messages
-- Group Messages
-- Today's Messages
-- Daily Chat Activity Chart
-
 ### Notification System
 
 - In-App Notifications
 - Notification Bell
 - Notification Count
 - Login Notifications
+- Attendance Notifications
+- Assignment Notifications
 - Chat Notifications
+- Grade Notifications
 - Mark Notification as Read
 
 ### Activity Logging
@@ -123,11 +120,13 @@ The Analytics Dashboard provides complete insights into LMS activities.
 - User Login Activity
 - Course Enrollment Activity
 - Progress Update Activity
+- Attendance Activity
+- Assignment Activity
 - Activity History
 
 ---
 
-# 4. Real-Time Collaboration & Messaging Module
+## 4. Real-Time Collaboration & Messaging Module
 
 The Real-Time Collaboration & Messaging Module enables instant communication between administrators, instructors, and students using FastAPI WebSockets.
 
@@ -146,15 +145,53 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 
 ---
 
+## 5. Advanced LMS Backend Features
+
+### Attendance Management (FastAPI)
+
+#### Features
+
+- Mark Attendance
+- Student Attendance Report
+- Course Attendance Report
+- Attendance Percentage Calculation
+- Attendance Notifications
+
+### Assignment Management (FastAPI)
+
+#### Features
+
+- Create Assignment
+- Upload Assignment File
+- Submit Assignment
+- Grade Assignment
+- View Assignments
+- View Submissions
+- Assignment Notifications
+
+### Reports Dashboard
+
+- Total Students
+- Total Instructors
+- Total Courses
+- Active Courses
+- Inactive Courses
+- Total Enrollments
+
+---
+
 # Django Admin Features
 
 - Admin Login
 - Dashboard
 - User Management
 - Instructor Management
+- Student Management
 - Course Management
 - Lesson Management
 - Enrollment Management
+- Attendance Management
+- Assignment Management
 - Progress Management
 - Subscription Management
 - Payment Management
@@ -162,6 +199,7 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 - Notification Management
 - Activity Log Management
 - Analytics Dashboard
+- Reports Dashboard
 - Certificate Generation
 - Invoice Generation
 
@@ -191,22 +229,64 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 - Update Progress
 - Get Progress
 
-## Subscription APIs
+## Attendance APIs
 
-- Purchase Subscription
+| Method | Endpoint |
+|----------|-------------------------------|
+| POST | /attendance/mark |
+| GET | /attendance/student/{student_id} |
+| GET | /attendance/course/{course_id} |
 
-## Payment APIs
+### Attendance Features
 
-- Payment History
+- Mark Student Attendance
+- Student Attendance Report
+- Course Attendance Report
+- Attendance Percentage Calculation
+- Attendance Notifications
+
+---
+
+## Assignment APIs
+
+| Method | Endpoint |
+|----------|--------------------------------|
+| POST | /assignments/create |
+| POST | /assignments/submit |
+| PUT | /assignments/grade |
+| GET | /assignments/ |
+| GET | /assignments/submissions |
+
+### Assignment Features
+
+- Create Assignment
+- Upload Assignment File
+- Submit Assignment
+- Grade Assignment
+- View Assignments
+- View Submissions
+- Assignment Notifications
+
+---
 
 ## Notification APIs
 
 - Get Notifications
 - Mark Notification as Read
+- Attendance Notifications
+- Assignment Notifications
+- Grade Notifications
+
+---
 
 ## Analytics APIs
 
 - Analytics Overview
+- Reports Dashboard
+- Student Analytics
+- Course Analytics
+
+---
 
 ## Chat APIs
 
@@ -240,13 +320,13 @@ python -m venv venv
 
 ## Activate Virtual Environment
 
-Windows
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Linux / macOS
+### Linux / macOS
 
 ```bash
 source venv/bin/activate
@@ -344,19 +424,25 @@ http://127.0.0.1:8001/docs
 
 ---
 
-## Subscription
+## Attendance
 
 | Method | Endpoint |
-|----------|---------------------------|
-| POST | /subscribe/ |
+|----------|-------------------------------|
+| POST | /attendance/mark |
+| GET | /attendance/student/{student_id} |
+| GET | /attendance/course/{course_id} |
 
 ---
 
-## Payments
+## Assignments
 
 | Method | Endpoint |
-|----------|---------------------------|
-| GET | /payments/ |
+|----------|--------------------------------|
+| POST | /assignments/create |
+| POST | /assignments/submit |
+| PUT | /assignments/grade |
+| GET | /assignments/ |
+| GET | /assignments/submissions |
 
 ---
 
@@ -374,6 +460,7 @@ http://127.0.0.1:8001/docs
 | Method | Endpoint |
 |----------|-----------------------------|
 | GET | /analytics/overview/ |
+| GET | /reports/ |
 
 ---
 
@@ -393,14 +480,21 @@ http://127.0.0.1:8001/docs
 Learning_Management_Platform/
 
 │── accounts/
+│── analytics_app/
 │── chat/
 │── courses/
 │── dashboard/
 │── fastapi_app/
+│   ├── attendance/
+│   ├── assignments/
 │   ├── chat/
-│   ├── users/
-│   ├── notifications/
 │   ├── courses/
+│   ├── notifications/
+│   ├── users/
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── main.py
 │
 │── templates/
 │── static/
@@ -408,6 +502,7 @@ Learning_Management_Platform/
 │   ├── js/
 │
 │── media/
+│── uploads/
 │── manage.py
 │── requirements.txt
 │── README.md
@@ -421,13 +516,16 @@ The project includes screenshots of:
 
 - Login Page
 - Admin Dashboard
+- Instructor Dashboard
 - Student Dashboard
 - Analytics Dashboard
-- Revenue Analytics
-- Chat Analytics Dashboard
+- Reports Dashboard
+- Attendance Module
+- Assignment Module
+- Notification Bell
+- Chat Dashboard
 - Private Chat
 - Group Chat
-- Notification Bell
 - Course Management
 - Subscription Page
 - Payment History
@@ -442,12 +540,13 @@ The project includes screenshots of:
 - GitHub Repository
 - README Documentation
 - Postman Collection
+- Attendance Management Module
+- Assignment Management Module
+- Notification System
 - Analytics Dashboard
-- Chat Analytics Dashboard
+- Reports Dashboard
 - Real-Time Chat Module
 - WebSocket Integration
-- Notification System
-- Activity Logging
 - FastAPI APIs
 - JWT Authentication
 - Certificate Generation
@@ -461,16 +560,18 @@ This project demonstrates practical implementation of:
 
 - Django Web Development
 - FastAPI REST APIs
+- SQLAlchemy ORM
 - WebSocket Communication
 - Real-Time Messaging
 - JWT Authentication
 - Role-Based Access Control
-- Analytics Dashboard Development
-- Chat Analytics
+- Attendance Management
+- Assignment Management
+- File Upload using FastAPI
 - Notification Management
-- Activity Logging
+- Analytics Dashboard Development
+- Reports Dashboard
 - Database Design
-- PDF Generation
 - API Testing using Postman
 - Git & GitHub Version Control
 
@@ -502,3 +603,33 @@ This project demonstrates practical implementation of:
 ### Learning Management Platform (LMS)
 
 Developed using **Django + FastAPI + WebSockets**
+
+---
+
+## Submission Deliverables
+
+✔️ Attendance Management (FastAPI)
+
+✔️ Assignment Management (FastAPI)
+
+✔️ Notification System
+
+✔️ Django Analytics Dashboard
+
+✔️ Reports Dashboard
+
+✔️ Real-Time Chat Module
+
+✔️ Postman Collection
+
+✔️ README Documentation
+
+✔️ GitHub Repository
+
+✔️ JWT Authentication
+
+✔️ Role-Based Access Control
+
+✔️ WebSocket Integration
+
+✔️ LMS Backend Features Completed
