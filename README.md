@@ -1,6 +1,6 @@
 # Learning Management Platform (LMS)
 
-## Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard, Notification System, Real-Time Collaboration & Advanced Backend Features
+## Learning Management Platform (LMS) with Subscription-Based Video Learning, Analytics Dashboard, Notification System, Real-Time Collaboration, Authentication System & Advanced Backend Features
 
 ---
 
@@ -8,13 +8,14 @@
 
 The **Learning Management Platform (LMS)** is a full-stack web application developed using **Django** and **FastAPI**. The platform enables administrators, instructors, and students to efficiently manage online learning.
 
-Students can register, enroll in courses, watch video lessons, purchase subscription plans, submit assignments, track attendance and learning progress, receive notifications, communicate through real-time chat, and download certificates.
+Students can register, log in using username/password, authenticate using OTP, recover forgotten passwords, sign in using Google, GitHub, or Facebook, enroll in courses, watch video lessons, purchase subscription plans, submit assignments, track attendance and learning progress, receive notifications, communicate through real-time chat, and download certificates.
 
 Administrators can manage users, instructors, courses, lessons, enrollments, subscriptions, payments, notifications, attendance, assignments, reports, and monitor platform performance through an interactive analytics dashboard.
 
 The project combines the following modules:
 
 - Learning Management Platform (LMS)
+- Authentication System
 - Subscription-Based Video Learning Platform
 - Analytics Dashboard & Notification System
 - Real-Time Collaboration & Messaging Module
@@ -29,12 +30,16 @@ The project combines the following modules:
 - FastAPI
 - SQLAlchemy
 - SQLite
-- WebSockets
 - JWT Authentication
+- OAuth 2.0
+- Google OAuth
+- GitHub OAuth
+- Facebook OAuth
 - Bootstrap 5
 - HTML5
 - CSS3
 - JavaScript
+- WebSockets
 - Chart.js
 - ReportLab
 - Uvicorn
@@ -66,7 +71,31 @@ The project combines the following modules:
 
 ---
 
-## 2. Subscription-Based Video Learning Platform
+## 2. Authentication Module
+
+The Authentication Module provides secure authentication using Django and FastAPI.
+
+### Features
+
+- User Registration
+- User Login
+- JWT Authentication
+- Get Current User
+- OTP Login
+- Email OTP Verification
+- Forgot Password
+- Reset Password
+- Google OAuth Login
+- GitHub OAuth Login
+- Facebook OAuth Login
+- Role-Based Authentication
+- Secure Password Hashing
+- Django Session Integration
+- Social Login Dashboard Redirect
+
+---
+
+## 3. Subscription-Based Video Learning Platform
 
 Students can purchase subscription plans to access premium learning content.
 
@@ -84,7 +113,7 @@ Students can purchase subscription plans to access premium learning content.
 
 ---
 
-## 3. Analytics Dashboard & Notification System
+## 4. Analytics Dashboard & Notification System
 
 The Analytics Dashboard provides complete insights into LMS activities.
 
@@ -126,7 +155,7 @@ The Analytics Dashboard provides complete insights into LMS activities.
 
 ---
 
-## 4. Real-Time Collaboration & Messaging Module
+## 5. Real-Time Collaboration & Messaging Module
 
 The Real-Time Collaboration & Messaging Module enables instant communication between administrators, instructors, and students using FastAPI WebSockets.
 
@@ -145,7 +174,7 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 
 ---
 
-## 5. Advanced LMS Backend Features
+## 6. Advanced LMS Backend Features
 
 ### Attendance Management (FastAPI)
 
@@ -212,6 +241,34 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 - Register User
 - Login User
 - Get Current User
+- JWT Authentication
+
+---
+
+## Authentication APIs
+
+### Username & Password Authentication
+
+- User Registration
+- User Login
+- Get Current User
+- JWT Authentication
+
+### OTP Authentication
+
+- Send OTP
+- Verify OTP
+- Forgot Password
+- Verify Forgot Password OTP
+- Reset Password
+
+### Social Authentication
+
+- Google OAuth Login
+- GitHub OAuth Login
+- Facebook OAuth Login
+
+---
 
 ## Course APIs
 
@@ -220,14 +277,20 @@ The Real-Time Collaboration & Messaging Module enables instant communication bet
 - Get Premium Courses
 - Get Subscription Plans
 
+---
+
 ## Enrollment APIs
 
 - Enroll Student
+
+---
 
 ## Progress APIs
 
 - Update Progress
 - Get Progress
+
+---
 
 ## Attendance APIs
 
@@ -396,6 +459,21 @@ http://127.0.0.1:8001/docs
 
 ---
 
+## Authentication
+
+| Method | Endpoint |
+|----------|-------------------------------------------|
+| POST | /auth/otp/send |
+| POST | /auth/otp/verify |
+| POST | /auth/otp/forgot-password |
+| POST | /auth/otp/verify-forgot-password-otp |
+| POST | /auth/otp/reset-password |
+| GET | /auth/google/login |
+| GET | /auth/github/login |
+| GET | /auth/facebook/login |
+
+---
+
 ## Courses
 
 | Method | Endpoint |
@@ -477,6 +555,7 @@ http://127.0.0.1:8001/docs
 # Project Structure
 
 ```
+
 Learning_Management_Platform/
 
 │── accounts/
@@ -487,6 +566,7 @@ Learning_Management_Platform/
 │── fastapi_app/
 │   ├── attendance/
 │   ├── assignments/
+│   ├── authentication/
 │   ├── chat/
 │   ├── courses/
 │   ├── notifications/
@@ -506,6 +586,7 @@ Learning_Management_Platform/
 │── manage.py
 │── requirements.txt
 │── README.md
+
 ```
 
 ---
@@ -514,7 +595,14 @@ Learning_Management_Platform/
 
 The project includes screenshots of:
 
-- Login Page
+- User Registration
+- User Login
+- OTP Login
+- Forgot Password
+- Reset Password
+- Google Login
+- GitHub Login
+- Facebook Login
 - Admin Dashboard
 - Instructor Dashboard
 - Student Dashboard
@@ -529,7 +617,8 @@ The project includes screenshots of:
 - Course Management
 - Subscription Page
 - Payment History
-- Django Admin
+- JWT Authentication (Postman)
+- Authentication API Testing
 - Postman API Testing
 
 ---
@@ -540,6 +629,12 @@ The project includes screenshots of:
 - GitHub Repository
 - README Documentation
 - Postman Collection
+- Authentication Module
+- JWT Authentication
+- OTP Authentication
+- Google OAuth Login
+- GitHub OAuth Login
+- Facebook OAuth Login
 - Attendance Management Module
 - Assignment Management Module
 - Notification System
@@ -548,7 +643,6 @@ The project includes screenshots of:
 - Real-Time Chat Module
 - WebSocket Integration
 - FastAPI APIs
-- JWT Authentication
 - Certificate Generation
 - Invoice PDF Generation
 
@@ -561,10 +655,19 @@ This project demonstrates practical implementation of:
 - Django Web Development
 - FastAPI REST APIs
 - SQLAlchemy ORM
+- JWT Authentication
+- OAuth Authentication
+- Google OAuth Integration
+- GitHub OAuth Integration
+- Facebook OAuth Integration
+- OTP Authentication
+- Email OTP Verification
+- Forgot Password Workflow
+- Password Reset Workflow
+- Secure Authentication & Authorization
+- Role-Based Access Control
 - WebSocket Communication
 - Real-Time Messaging
-- JWT Authentication
-- Role-Based Access Control
 - Attendance Management
 - Assignment Management
 - File Upload using FastAPI
@@ -583,6 +686,10 @@ This project demonstrates practical implementation of:
 - Razorpay Integration
 - Redis
 - Celery Background Tasks
+- Refresh Token Authentication
+- Multi-Factor Authentication (MFA)
+- Email Verification
+- SMS OTP Authentication
 - Typing Indicator
 - Read Receipts
 - File Sharing
@@ -602,11 +709,39 @@ This project demonstrates practical implementation of:
 
 ### Learning Management Platform (LMS)
 
-Developed using **Django + FastAPI + WebSockets**
+Developed using:
+
+- Django
+- FastAPI
+- JWT Authentication
+- Google OAuth
+- GitHub OAuth
+- Facebook OAuth
+- WebSockets
 
 ---
 
-## Submission Deliverables
+# Submission Deliverables
+
+✔️ Learning Management Platform (LMS)
+
+✔️ Authentication Module
+
+✔️ User Registration
+
+✔️ User Login
+
+✔️ JWT Authentication
+
+✔️ OTP Authentication
+
+✔️ Forgot Password & Reset Password
+
+✔️ Google OAuth Login
+
+✔️ GitHub OAuth Login
+
+✔️ Facebook OAuth Login
 
 ✔️ Attendance Management (FastAPI)
 
@@ -614,11 +749,15 @@ Developed using **Django + FastAPI + WebSockets**
 
 ✔️ Notification System
 
-✔️ Django Analytics Dashboard
+✔️ Analytics Dashboard
 
 ✔️ Reports Dashboard
 
 ✔️ Real-Time Chat Module
+
+✔️ WebSocket Integration
+
+✔️ FastAPI APIs
 
 ✔️ Postman Collection
 
@@ -626,10 +765,49 @@ Developed using **Django + FastAPI + WebSockets**
 
 ✔️ GitHub Repository
 
-✔️ JWT Authentication
+---
 
-✔️ Role-Based Access Control
+# Authentication Summary
 
-✔️ WebSocket Integration
+The LMS Authentication Module supports multiple authentication methods for secure access to the platform.
 
-✔️ LMS Backend Features Completed
+### Implemented Features
+
+- Username & Password Login
+- JWT Token Authentication
+- Current User API
+- Email OTP Login
+- Forgot Password via OTP
+- Password Reset
+- Google Social Login
+- GitHub Social Login
+- Facebook Social Login
+- Django Session Integration
+- Role-Based Dashboard Redirect
+- Authentication API Testing using Postman
+
+---
+
+## Authentication API Endpoints
+
+| Method | Endpoint |
+|---------|-------------------------------------------|
+| POST | /users/register |
+| POST | /users/login |
+| GET | /users/me |
+| POST | /auth/otp/send |
+| POST | /auth/otp/verify |
+| POST | /auth/otp/forgot-password |
+| POST | /auth/otp/verify-forgot-password-otp |
+| POST | /auth/otp/reset-password |
+| GET | /auth/google/login |
+| GET | /auth/github/login |
+| GET | /auth/facebook/login |
+
+---
+
+## Project Status
+
+**Project Status:** ✅ Completed
+
+All core LMS modules, authentication features, analytics, notifications, real-time messaging, attendance management, assignment management, and FastAPI APIs have been successfully implemented and tested.

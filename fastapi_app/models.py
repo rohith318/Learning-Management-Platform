@@ -16,18 +16,39 @@ from datetime import datetime
 from sqlalchemy import Boolean
 from datetime import datetime
 
-
+print("Loading models.py - Start")
+print("User model loaded")
+print("Attendance model loaded")
+print("End of models.py")
 
 class User(Base):
     __tablename__ = "accounts_user"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String(150), unique=True, index=True)
-    full_name = Column(String(100))
-    email = Column(String(254), unique=True, index=True)
-    password = Column(String(128))
-    role = Column(String(20))
 
+    password = Column(String(128))
+
+    last_login = Column(DateTime, nullable=True)
+
+    is_superuser = Column(Boolean, default=False)
+
+    username = Column(String(150), unique=True, index=True)
+
+    first_name = Column(String(150), default="")
+
+    last_name = Column(String(150), default="")
+
+    email = Column(String(254), unique=True, index=True)
+
+    is_staff = Column(Boolean, default=False)
+
+    is_active = Column(Boolean, default=True)
+
+    date_joined = Column(DateTime, default=datetime.utcnow)
+
+    full_name = Column(String(100))
+
+    role = Column(String(20))
 
 class Plan(Base):
     __tablename__ = "courses_plan"
@@ -134,3 +155,51 @@ class Notification(Base):
 
     created_at = Column(DateTime, default=datetime.utcnow)    
 
+class SocialAccount(Base):
+    __tablename__ = "accounts_socialaccount"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("accounts_user.id"),
+        nullable=False
+    )
+
+    provider = Column(String(20), nullable=False)
+
+    provider_user_id = Column(
+        String(255),
+        unique=True,
+        nullable=False
+    )
+
+    email = Column(String(254), nullable=False)
+
+    created_at = Column(DateTime)
+
+    user = relationship("User")
+
+
+class OTPLog(Base):
+    __tablename__ = "accounts_otplog"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("accounts_user.id"),
+        nullable=True
+    )
+
+    email = Column(String(254), nullable=False)
+
+    otp = Column(String(6), nullable=False)
+
+    is_verified = Column(Boolean, default=False)
+
+    created_at = Column(DateTime)
+
+    expires_at = Column(DateTime)
+
+    user = relationship("User")

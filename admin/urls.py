@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
-
+from dashboard.views import who_am_i
 from dashboard.user_views import (
     user_login,
     user_dashboard,
@@ -32,6 +32,9 @@ from dashboard.user_views import (
      next_lesson,
      download_certificate,
      generate_certificate,
+       otp_login,  
+       verify_otp,
+        social_login_success,
 )
 
 urlpatterns = [
@@ -75,9 +78,32 @@ path(
 ),
 
 path(
+    "reset/<uidb64>/<token>/",
+    auth_views.PasswordResetConfirmView.as_view(
+        template_name="registration/password_reset_confirm.html",
+        success_url="/user/login/",
+    ),
+    name="password_reset_confirm",
+),
+
+path(
+    "reset/done/",
+    auth_views.PasswordResetCompleteView.as_view(
+        template_name="registration/password_reset_complete.html",
+    ),
+    name="password_reset_complete",
+),
+
+path(
     "user/login/",
     user_login,
     name="user_login",
+),
+
+path(
+    "user/otp-login/",
+    otp_login,
+    name="otp_login",
 ),
 
 path(
@@ -175,6 +201,25 @@ path(
     "analytics/",
     include("analytics_app.urls"),
 ),
+
+path(
+    "whoami/",
+    who_am_i,
+    name="who_am_i",
+),
+
+path(
+    "verify-otp/",
+    verify_otp,
+    name="verify_otp",
+),
+
+path(
+    "social-login-success/",
+    social_login_success,
+    name="social_login_success",
+),
+
 
     path("", include("dashboard.urls")),
 

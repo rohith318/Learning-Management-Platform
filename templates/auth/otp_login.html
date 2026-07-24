@@ -1,0 +1,113 @@
+{% extends "auth_base.html" %}
+{% load static %}
+
+{% block title %}OTP Login{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+
+        <div class="col-md-5">
+
+            <div class="card shadow p-4">
+
+                <h3 class="text-center mb-4">
+                    Login with OTP
+                </h3>
+
+                <form id="otpForm">
+
+                    <div class="mb-3">
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            placeholder="Enter your email"
+                            required>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-warning w-100">
+
+                        Send OTP
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+console.log("OTP JS Loaded");
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    console.log("DOM Loaded");
+
+    const form = document.getElementById("otpForm");
+
+    form.addEventListener("submit", async function(e){
+
+        e.preventDefault();
+
+        console.log("Button Clicked");
+
+        const email = document.getElementById("email").value;
+
+        try{
+
+            const response = await fetch("http://127.0.0.1:8001/auth/otp/send",{
+
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body:JSON.stringify({
+                    email:email
+                })
+
+            });
+
+            const data = await response.json();
+
+            console.log(data);
+
+            if(response.ok){
+
+                alert("OTP Sent Successfully");
+
+                window.location.href = "{% url 'verify_otp' %}?email=" + encodeURIComponent(email);
+
+            }else{
+
+                alert(data.detail || data.message || "Failed to send OTP");
+
+            }
+
+        }catch(error){
+
+            console.error(error);
+
+            alert("Unable to connect to FastAPI");
+
+        }
+
+    });
+
+});
+
+</script>
+
+{% endblock %}

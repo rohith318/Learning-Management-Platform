@@ -4,6 +4,8 @@ from datetime import date
 from typing import List
 from datetime import datetime
 from typing import Optional
+from pydantic import BaseModel, EmailStr
+
 
 
 # -------------------------
@@ -142,3 +144,22 @@ class SubmissionResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class OtpRequest(BaseModel):
+    email: str
+
+class OtpVerifyRequest(BaseModel):
+    email: EmailStr
+    otp: str    
+
+class ForgotPasswordRequest(BaseModel):
+    email: EmailStr    
+
+class VerifyForgotPasswordOtpRequest(BaseModel):
+    email: EmailStr
+    otp: str
+
+
+class ResetPasswordRequest(BaseModel):
+    email: EmailStr
+    new_password: str    

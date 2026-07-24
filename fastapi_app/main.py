@@ -24,9 +24,15 @@ from fastapi_app.routers import attendance
 from fastapi_app.database import Base, engine
 import fastapi_app.models
 from fastapi_app.routers import assignments
+from fastapi_app.routers import auth_google
+from fastapi_app.routers import auth_facebook
+from fastapi_app.routers import auth_github
+from fastapi_app.routers import auth_otp
+from starlette.middleware.sessions import SessionMiddleware
+
 from fastapi.middleware.cors import CORSMiddleware
 
-Base.metadata.create_all(bind=engine)
+##Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Learning Management Platform API",
@@ -45,6 +51,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(
+    SessionMiddleware,
+    secret_key=os.getenv("SECRET_KEY"),
+)
+
 app.include_router(users.router)
 app.include_router(courses.router)
 app.include_router(enrollments.router)
@@ -58,6 +69,11 @@ app.include_router(notification_api.router)
 app.include_router(chat_users.router)
 app.include_router(attendance.router)
 app.include_router(assignments.router)
+
+app.include_router(auth_google.router)
+app.include_router(auth_facebook.router)
+app.include_router(auth_github.router)
+app.include_router(auth_otp.router)
 
 @app.get("/")
 def root():

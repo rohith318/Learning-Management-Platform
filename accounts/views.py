@@ -106,7 +106,7 @@ def forgot_password(request):
 
             messages.success(request, "Password changed successfully.")
 
-            return redirect("login")
+            return redirect("user_login")
 
         except User.DoesNotExist:
 
@@ -115,4 +115,5 @@ def forgot_password(request):
             return redirect("forgot_password")
 
     return render(request, "registration/forgot_password.html")
+
 

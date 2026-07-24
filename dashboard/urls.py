@@ -23,6 +23,12 @@ urlpatterns = [
     ),
 
     path(
+    "social-login-success/",
+    user_views.social_login_success,
+    name="social_login_success",
+),
+
+    path(
         "user/register/",
         user_views.register,
         name="register",
@@ -162,8 +168,6 @@ path(
     reports_view,
     name="reports",
 ),
-
-
 
 ]
 

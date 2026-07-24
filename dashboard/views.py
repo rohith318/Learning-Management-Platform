@@ -324,5 +324,16 @@ def reports_view(request):
         context,
     )
 
+from django.http import HttpResponse
+
+def who_am_i(request):
+    if request.user.is_authenticated:
+        return HttpResponse(f"""
+        Username: {request.user.username}<br>
+        Superuser: {request.user.is_superuser}<br>
+        Staff: {request.user.is_staff}
+        """)
+    return HttpResponse("Anonymous User")
+
 
 

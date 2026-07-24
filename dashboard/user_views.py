@@ -22,6 +22,9 @@ import requests
 import requests
 from django.contrib import messages
 from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.shortcuts import redirect
+from django.contrib.auth import get_user_model
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -104,6 +107,47 @@ def user_login(request):
         request,
         "user/login.html",
     )
+
+def social_login_success(request):
+
+    email = request.GET.get("email")
+
+    if not email:
+        messages.error(request, "Email not found.")
+        return redirect("user_login")
+
+    try:
+        user = User.objects.get(email=email)
+
+        login(request, user)
+
+        ActivityLog.objects.create(
+            user=user,
+            action_type="LOGIN",
+            action_detail="Social login successful"
+        )
+
+        Notification.objects.create(
+            user=user,
+            message="You logged in successfully using Social Login."
+        )
+
+        role = user.role.lower()
+
+        if role == "admin":
+            return redirect("dashboard")
+
+        elif role == "instructor":
+            return redirect("instructor_dashboard")
+
+        elif role == "student":
+            return redirect("user_dashboard")
+
+        return redirect("user_dashboard")
+
+    except User.DoesNotExist:
+        messages.error(request, "User not found.")
+        return redirect("user_login")
 
 @login_required
 def user_dashboard(request):
@@ -814,3 +858,28 @@ def submit_assignment(request, assignment_id):
             "assignment_id": assignment_id,
         },
     )
+
+def otp_login(request):
+    return render(request, "auth/otp_login.html")
+
+def verify_otp(request):
+    return render(request, "auth/verify_otp.html")    
+
+User = get_user_model()
+
+def social_login_success(request):
+
+    email = request.GET.get("email")
+
+    if not email:
+        return redirect("user_login")
+
+    try:
+        user = User.objects.get(email=email)
+
+        login(request, user)
+
+        return redirect("user_dashboard")
+
+    except User.DoesNotExist:
+        return redirect("user_login")

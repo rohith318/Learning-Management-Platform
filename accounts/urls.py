@@ -7,6 +7,7 @@ from dashboard.user_views import (
     my_courses,
     user_logout,
     register,
+    otp_login,
 )
 
 urlpatterns = [
@@ -25,4 +26,11 @@ path(
     register,
     name="register",
 ),
+
+path(
+    "user/otp-login/",
+    otp_login,
+    name="otp_login",
+),
+
 ]
